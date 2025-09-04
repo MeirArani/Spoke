@@ -1,25 +1,5 @@
-import { Box3, Sphere, PropertyBinding } from "three";
-import Model from "../objects/Model";
-import EditorNodeMixin from "./EditorNodeMixin";
-import { setStaticMode, StaticModes } from "../StaticMode";
-import cloneObject3D from "../utils/cloneObject3D";
-import { getComponents } from "../gltf/moz-hubs-components";
-import { RethrownError } from "../utils/errors";
-import { getObjectPerfIssues, maybeAddLargeFileIssue } from "../utils/performance";
 import ModelNode from "./ModelNode";
-
-const defaultStats = {
-  nodes: 0,
-  meshes: 0,
-  materials: 0,
-  textures: 0,
-  polygons: 0,
-  vertices: 0,
-  jsonSize: 0,
-  bufferInfo: {},
-  textureInfo: {},
-  meshInfo: {}
-};
+import AudioNode from "./AudioNode";
 
 export default class AnimationModelNode extends ModelNode {
   static nodeName = "Animation Model";
@@ -30,6 +10,8 @@ export default class AnimationModelNode extends ModelNode {
     initialScale: "fit",
     src: "https://sketchfab.com/models/a4c500d7358a4a199b6a5cd35f416466"
   };
+
+  activeClipItem = this.activeClipIndex;
 
   static async deserialize(editor, json, loadAsync, onError) {
     const node = await super.deserialize(editor, json);
@@ -54,7 +36,7 @@ export default class AnimationModelNode extends ModelNode {
         const animationComponent = json.components.find(c => c.name === "animation-model");
 
         if (animationComponent && animationComponent.props) {
-          const { activeClipIndex, animationStartOffset, audioNode } = loopAnimationComponent.props;
+          const { activeClipIndex, animationStartOffset, audioNode } = animationComponent.props;
 
           if (animationStartOffset !== undefined) {
             node.animationStartOffset = animationStartOffset;
@@ -80,9 +62,10 @@ export default class AnimationModelNode extends ModelNode {
 
   constructor(editor) {
     super(editor);
-    this.activeClipIndex = null;
+    this.activeClipIndex = {};
     this.animationStartOffset = 0.0;
-    this.audioNode = null;
+    this.audioNode = new AudioNode(editor);
+    this.audioNode.name = "Select audio node...";
   }
 
   serialize() {
@@ -93,13 +76,16 @@ export default class AnimationModelNode extends ModelNode {
       }
     };
 
-    if (this.activeClipIndices.length > 0) {
-      components["animation-model"] = {
-        activeClipIndex: this.activeClipIndex,
-        animationStartOffset: this.animationStartOffset,
-        audioNode: this.audioNode
-      };
-    }
+    const toAdd =
+      this.activeClipIndices.length > 0
+        ? {
+            activeClipIndex: this.activeClipIndex,
+            animationStartOffset: this.animationStartOffset,
+            audioNode: this.audioNode
+          }
+        : { audioNode: this.audioNode };
+
+    components["animation-model"] = toAdd;
 
     if (this.combine) {
       components.combine = {};

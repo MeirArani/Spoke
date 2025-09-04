@@ -1,5 +1,4 @@
-import React, { Component } from "react";
-import PropTypes from "prop-types";
+import React from "react";
 import NodeEditor from "./NodeEditor";
 import SelectInput from "../inputs/SelectInput";
 import InputGroup from "../inputs/InputGroup";
@@ -10,13 +9,11 @@ import { GLTFInfo } from "../inputs/GLTFInfo";
 import { PlayCircle } from "styled-icons/fa-solid";
 import AttributionNodeEditor from "./AttributionNodeEditor";
 import NumericInput from "../inputs/NumericInput";
-import AudioInput from "../inputs/AudioInput";
-import ModelNode from "../../editor/nodes/ModelNode";
-import AudioParamsNode from "../../editor/nodes/AudioParamsNode";
-import SpawnPointNode from "../../editor/nodes/SpawnPointNode";
+import AudioNode from "../../editor/nodes/AudioNode";
 
 export default class AnimationModelNodeEditor extends ModelNodeEditor {
   static description = "A (ANIMATED!!!) 3D model in your scene, loaded from a GLTF URL or file.";
+
   static iconComponent = PlayCircle;
 
   onChangeSrc = (src, initialProps) => {
@@ -39,6 +36,10 @@ export default class AnimationModelNodeEditor extends ModelNodeEditor {
     this.props.editor.setPropertySelected("combine", combine);
   };
 
+  onChangeAudioNode = audioNode => {
+    this.props.editor.setPropertySelected("audioNode", audioNode);
+  };
+
   isAnimationPropertyDisabled() {
     const { multiEdit, editor, node } = this.props;
 
@@ -52,8 +53,15 @@ export default class AnimationModelNodeEditor extends ModelNodeEditor {
   render() {
     const node = this.props.node;
 
-    console.log(node.editor.scene.getNodesByType(ModelNode));
-    console.log(node.editor.scene.getNodesByType(AudioParamsNode));
+    const getAudioNodes = () => {
+      const audioNodes = node.editor && node.editor.scene ? node.editor.scene.getNodesByType(AudioNode) : [];
+      const ret = audioNodes.map(node => ({ label: node.name, value: node }));
+
+      if (ret.length == 0) {
+        ret.unshift({ label: "None", value: -1 });
+      }
+      return ret;
+    };
 
     return (
       <NodeEditor description={AnimationModelNodeEditor.description} {...this.props}>
@@ -69,13 +77,19 @@ export default class AnimationModelNodeEditor extends ModelNodeEditor {
           />
         </InputGroup>
         <InputGroup name="Animation Start Offset">
-          <NumericInput value={node.animationStartOffset} onChange={this.onChangeAnimationStartOffset} />
+          <NumericInput value={node.animationStartOffset} onChange={this.onChangeAnimationStartOffset} unit={"sec"} />
         </InputGroup>
         <InputGroup name="Combine">
           <BooleanInput value={node.combine} onChange={this.onChangeCombine} />
         </InputGroup>
         <InputGroup name="Link Audio Node">
-          <AudioInput></AudioInput>
+          <SelectInput
+            options={getAudioNodes()}
+            value={node.audioNode}
+            placeholder={node.audioNode.name || "Select..."}
+            onChange={this.onChangeAudioNode}
+            classNamePrefix="select"
+          />
         </InputGroup>
         {node.model && <GLTFInfo node={node} />}
         <AttributionNodeEditor name="Attribution" {...this.props} />
