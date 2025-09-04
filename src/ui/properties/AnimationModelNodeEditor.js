@@ -10,6 +10,10 @@ import { GLTFInfo } from "../inputs/GLTFInfo";
 import { PlayCircle } from "styled-icons/fa-solid";
 import AttributionNodeEditor from "./AttributionNodeEditor";
 import NumericInput from "../inputs/NumericInput";
+import AudioInput from "../inputs/AudioInput";
+import ModelNode from "../../editor/nodes/ModelNode";
+import AudioParamsNode from "../../editor/nodes/AudioParamsNode";
+import SpawnPointNode from "../../editor/nodes/SpawnPointNode";
 
 export default class AnimationModelNodeEditor extends ModelNodeEditor {
   static description = "A (ANIMATED!!!) 3D model in your scene, loaded from a GLTF URL or file.";
@@ -48,6 +52,9 @@ export default class AnimationModelNodeEditor extends ModelNodeEditor {
   render() {
     const node = this.props.node;
 
+    console.log(node.editor.scene.getNodesByType(ModelNode));
+    console.log(node.editor.scene.getNodesByType(AudioParamsNode));
+
     return (
       <NodeEditor description={AnimationModelNodeEditor.description} {...this.props}>
         <InputGroup name="Model Url">
@@ -66,6 +73,9 @@ export default class AnimationModelNodeEditor extends ModelNodeEditor {
         </InputGroup>
         <InputGroup name="Combine">
           <BooleanInput value={node.combine} onChange={this.onChangeCombine} />
+        </InputGroup>
+        <InputGroup name="Link Audio Node">
+          <AudioInput></AudioInput>
         </InputGroup>
         {node.model && <GLTFInfo node={node} />}
         <AttributionNodeEditor name="Attribution" {...this.props} />
