@@ -69,6 +69,9 @@ import HubsSoundPackSource from "./ui/assets/sources/HubsSoundPackSource";
 import TroikaTextNode from "./editor/nodes/TroikaTextNode";
 import TroikaTextNodeEditor from "./ui/properties/TroikaTextNodeEditor";
 
+import JumpNode from "./editor/nodes/JumpNode";
+import JumpNodeEditor from "./ui/properties/JumpNodeEditor";
+
 import CollisionTriggerNode from "./editor/nodes/CollisionTrigger";
 import CollisionTriggerNodeEditor from "./ui/properties/CollisionTriggerNodeEditor";
 import AnimationModelNode from "./editor/nodes/AnimationModelNode";
@@ -110,7 +113,7 @@ export function createEditor(api, settings) {
   editor.registerNode(MirrorNode, MirrorNodeEditor);
 
   //editor.registerNode(EventNode, EventNodeEditor);
-  //editor.registerNode(JumpNode, JumpNodeEditor);
+  editor.registerNode(JumpNode, JumpNodeEditor);
   editor.registerNode(CollisionTriggerNode, CollisionTriggerNodeEditor);
   editor.registerNode(InteractTriggerNode, InteractTriggerNodeEditor);
 
