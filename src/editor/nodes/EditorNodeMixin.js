@@ -444,7 +444,7 @@ export default function EditorNodeMixin(Object3DClass) {
         }
 
         if (child.constructor === nodeType) {
-          nodes.push(this);
+          nodes.push(child);
         }
       });
 
