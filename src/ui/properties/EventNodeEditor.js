@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import NodeEditor from "./NodeEditor";
 import PropertyGroup from "./PropertyGroup";
 import { Event } from "styled-icons/material";
+import ActionInput from "../inputs/ActionInput";
 
 export default class EventNodeEditor extends Component {
   static propTypes = {
@@ -20,7 +21,9 @@ export default class EventNodeEditor extends Component {
 
     return (
       <NodeEditor description={EventNodeEditor.description} {...this.props}>
-        <PropertyGroup></PropertyGroup>
+        <PropertyGroup>
+          <ActionInput />
+        </PropertyGroup>
       </NodeEditor>
     );
   }
