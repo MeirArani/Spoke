@@ -139,73 +139,21 @@ export default class CollisionTriggerNodeEditor extends Component {
 
     return (
       <NodeEditor description={CollisionTriggerNodeEditor.description} {...this.props}>
-        <InputGroup name="Target">
+        <InputGroup name="Enter Event">
           <SelectInput
-            error={targetNotFound}
-            placeholder={targetNotFound ? "Error missing node." : "Select node..."}
-            value={node.target}
-            onChange={this.onChangeTarget}
-            options={this.state.options}
-            disabled={multiEdit}
-          />
-        </InputGroup>
-        <InputGroup name="Enter Component">
-          <SelectInput
-            placeholder={node.enterComponent || "Select component..."}
+            placeholder={node.enterComponent || "None"}
             value={node.enterComponent}
             onChange={this.onChangeEnterComponent}
             options={filteredComponentOptions}
-            disabled={multiEdit || !target}
           />
         </InputGroup>
-        <InputGroup name="Enter Property">
+        <InputGroup name="Leave Event">
           <SelectInput
-            placeholder={node.enterProperty || "Select property..."}
-            value={node.enterProperty}
-            onChange={this.onChangeEnterProperty}
-            options={filteredEnterPropertyOptions}
-            disabled={multiEdit || !enterComponent}
-          />
-        </InputGroup>
-        <InputGroup name="Enter Value">
-          {EnterInput ? (
-            <EnterInput
-              value={node.enterValue}
-              onChange={this.onChangeEnterValue}
-              disabled={multiEdit || !(target && enterComponent && enterProperty)}
-            />
-          ) : (
-            <StringInput disabled />
-          )}
-        </InputGroup>
-        <InputGroup name="Leave Component">
-          <SelectInput
-            placeholder={node.leaveComponent || "Select component..."}
+            placeholder={node.leaveComponent || "None"}
             value={node.leaveComponent}
             onChange={this.onChangeLeaveComponent}
             options={filteredComponentOptions}
-            disabled={multiEdit || !target}
           />
-        </InputGroup>
-        <InputGroup name="Leave Property">
-          <SelectInput
-            placeholder={node.leaveProperty || "Select property..."}
-            value={node.leaveProperty}
-            onChange={this.onChangeLeaveProperty}
-            options={filteredLeavePropertyOptions}
-            disabled={multiEdit || !leaveComponent}
-          />
-        </InputGroup>
-        <InputGroup name="Leave Value">
-          {LeaveInput ? (
-            <LeaveInput
-              value={node.leaveValue}
-              onChange={this.onChangeLeaveValue}
-              disabled={multiEdit || !(target && leaveComponent && leaveProperty)}
-            />
-          ) : (
-            <StringInput disabled />
-          )}
         </InputGroup>
       </NodeEditor>
     );

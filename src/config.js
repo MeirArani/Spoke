@@ -71,6 +71,10 @@ import TroikaTextNodeEditor from "./ui/properties/TroikaTextNodeEditor";
 
 import CollisionTriggerNode from "./editor/nodes/CollisionTrigger";
 import CollisionTriggerNodeEditor from "./ui/properties/CollisionTriggerNodeEditor";
+import AnimationModelNode from "./editor/nodes/AnimationModelNode";
+import AnimationModelNodeEditor from "./ui/properties/AnimationModelNodeEditor";
+import InteractTriggerNode from "./editor/nodes/InteractTriggerNode";
+import InteractTriggerNodeEditor from "./ui/properties/InteractTriggerNodeEditor";
 
 export function createEditor(api, settings) {
   const editor = new Editor(api, settings);
@@ -103,7 +107,10 @@ export function createEditor(api, settings) {
   editor.registerNode(AudioZoneNode, AudioZoneNodeEditor);
   editor.registerNode(TroikaTextNode, TroikaTextNodeEditor);
   editor.registerNode(MirrorNode, MirrorNodeEditor);
+
+  editor.registerNode(AnimationModelNode, AnimationModelNodeEditor);
   editor.registerNode(CollisionTriggerNode, CollisionTriggerNodeEditor);
+  editor.registerNode(InteractTriggerNode, InteractTriggerNodeEditor);
 
   editor.registerSource(new ElementsSource(editor));
   editor.registerSource(new MyAssetsSource(editor));
