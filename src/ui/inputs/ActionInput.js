@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { ExitButton, EventButton } from "./Button";
+import * as css from "./ActionButtons";
 import SelectInput from "./SelectInput";
 
 export default class ActionInput extends Component {
@@ -11,37 +11,36 @@ export default class ActionInput extends Component {
     //const { ...rest } = this.props;
 
     return (
-      <div
-        style={{
-          display: "flex",
-          "flex-direction": "row",
-          padding: "10px 8px",
-          margin: "0px 8px",
-          "border-top": "1px solid rgb(93, 100, 108)"
-        }}
-      >
-        <div>
-          <EventButton>∧</EventButton>
-          <EventButton>∨</EventButton>
-        </div>
-        <div>
-          <div>
-            <div>{"Action"}</div>
-            <div>
-              <SelectInput options={[]} value={[]} classNamePrefix={"select"} />
-            </div>
-          </div>
-          <div>
-            <div>{"Target"}</div>
-            <div>
-              <SelectInput options={[]} value={[]} classNamePrefix={"select"} />
-            </div>
-          </div>
-        </div>
+      <div>
+        <css.ActionGroup>
+          <css.ActionButtonGroup>
+            <css.ActionButton>∧</css.ActionButton>
+            <css.ActionButton>∨</css.ActionButton>
+          </css.ActionButtonGroup>
 
-        <div>
-          <ExitButton>x</ExitButton>
-        </div>
+          <css.ActionMain>
+            <css.ActionProperty>
+              <css.ActionLabelDiv>
+                <css.ActionLabel>{"Action"}</css.ActionLabel>
+              </css.ActionLabelDiv>
+              <css.ActionSelection>
+                <SelectInput options={[]} value={[]} classNamePrefix={"select"} />
+              </css.ActionSelection>
+            </css.ActionProperty>
+
+            <css.ActionProperty>
+              <css.ActionLabelDiv>
+                <css.ActionLabel>{"Target"}</css.ActionLabel>
+              </css.ActionLabelDiv>
+              <css.ActionSelection>
+                <SelectInput options={[]} value={[]} classNamePrefix={"select"} />
+              </css.ActionSelection>
+            </css.ActionProperty>
+          </css.ActionMain>
+          <css.DeleteButtonMain>
+            <css.DeleteButton>x</css.DeleteButton>
+          </css.DeleteButtonMain>
+        </css.ActionGroup>
       </div>
     );
   }
