@@ -1,5 +1,7 @@
+import React from "react";
 import styled from "styled-components";
 import { Button } from "./Button";
+import PropTypes from "prop-types";
 
 export const ActionGrouping = styled.div`
   display: flex;
@@ -8,7 +10,7 @@ export const ActionGrouping = styled.div`
   margin-right: 20px;
 `;
 
-export const ActionGroup = styled.div`
+export const ActionContainer = styled.div`
   display: flex;
   flex-direction: row;
   padding: 10px 8px;
@@ -84,7 +86,7 @@ export const ActionLabelDiv = styled.div`
   justify-content: center;
 `;
 
-export const ActionLabel = styled.label`
+export const ActionLabelStyle = styled.label`
   font-weight: bold;
   color: rgb(255, 255, 255);
   padding-right: 8px;
@@ -130,3 +132,46 @@ export const DeleteButton = styled(Button)`
     background-color: rgb(5, 84, 188);
   }
 `;
+
+export const PlusMinusButtonContainer = styled.div`
+  display: flex;
+  -moz-box-pack: end;
+  justify-content: flex-end;
+  padding-top: 10px;
+  margin-right: 20px;
+  border-top: 1px solid rgb(93, 100, 108);
+`;
+
+export const PlusMinusButton = styled(Button)`
+  border: medium;
+  border-radius: 4px;
+  background: rgb(0, 110, 255);
+  color: rgb(255, 255, 255);
+  white-space: nowrap;
+  min-height: 24px;
+  font-size: 12px;
+  font-family: "Lato", sans-serif;
+  text-align: center;
+  cursor: pointer;
+  -moz-box-align: center;
+  align-items: center;
+  text-decoration: none;
+  width: 15%;
+  padding: 0px 2em;
+  display: flex;
+  -moz-box-pack: center;
+  justify-content: center;
+  margin: 0px 5px;
+`;
+
+export function ActionLabel(props) {
+  return (
+    <ActionLabelDiv>
+      <ActionLabelStyle>{props.children}</ActionLabelStyle>
+    </ActionLabelDiv>
+  );
+}
+
+ActionLabel.propTypes = {
+  children: PropTypes.node
+};

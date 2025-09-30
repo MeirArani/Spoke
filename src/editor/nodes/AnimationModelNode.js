@@ -62,6 +62,7 @@ export default class AnimationModelNode extends ModelNode {
 
   constructor(editor) {
     super(editor);
+    this.type = "AnimationModel";
     this.activeClipIndex = {};
     this.animationStartOffset = 0.0;
     this.audioNode = new AudioNode(editor);

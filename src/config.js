@@ -88,6 +88,7 @@ export function createEditor(api, settings) {
   editor.registerNode(GroupNode, GroupNodeEditor);
   editor.registerNode(ModelNode, ModelNodeEditor);
   editor.registerNode(AnimationModelNode, AnimationModelNodeEditor);
+  editor.registerNode(EventNode, EventNodeEditor);
   editor.registerNode(GroundPlaneNode, GroundPlaneNodeEditor);
   editor.registerNode(BoxColliderNode, BoxColliderNodeEditor);
   editor.registerNode(AmbientLightNode, AmbientLightNodeEditor);
@@ -114,7 +115,6 @@ export function createEditor(api, settings) {
   editor.registerNode(TroikaTextNode, TroikaTextNodeEditor);
   editor.registerNode(MirrorNode, MirrorNodeEditor);
 
-  editor.registerNode(EventNode, EventNodeEditor);
   editor.registerNode(JumpNode, JumpNodeEditor);
   editor.registerNode(CollisionTriggerNode, CollisionTriggerNodeEditor);
   editor.registerNode(InteractTriggerNode, InteractTriggerNodeEditor);
