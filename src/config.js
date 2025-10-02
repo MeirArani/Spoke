@@ -62,6 +62,7 @@ import MyAssetsSource from "./ui/assets/sources/MyAssetsSource";
 import ArchitectureKitSource from "./ui/assets/sources/ArchitectureKitSource";
 import RockKitSource from "./ui/assets/sources/RockKitSource";
 import HubsSoundPackSource from "./ui/assets/sources/HubsSoundPackSource";
+import FaboxSource from "./ui/assets/sources/FaboxSource";
 
 import TroikaTextNode from "./editor/nodes/TroikaTextNode";
 import TroikaTextNodeEditor from "./ui/properties/TroikaTextNodeEditor";
@@ -121,6 +122,7 @@ export function createEditor(api, settings) {
   editor.registerSource(new ArchitectureKitSource(api));
   editor.registerSource(new RockKitSource(api));
   editor.registerSource(new SketchfabSource(api));
+  editor.registerSource(new FaboxSource(api));
   editor.registerSource(new HubsSoundPackSource(editor));
 
   return editor;
