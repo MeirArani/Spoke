@@ -57,9 +57,6 @@ import MediaFrameNode from "./editor/nodes/MediaFrameNode";
 import MediaFrameNodeEditor from "./ui/properties/MediaFrameNodeEditor";
 
 import SketchfabSource from "./ui/assets/sources/SketchfabSource";
-import BingImagesSource from "./ui/assets/sources/BingImagesSource";
-import BingVideosSource from "./ui/assets/sources/BingVideosSource";
-import TenorSource from "./ui/assets/sources/TenorSource";
 import ElementsSource from "./ui/assets/sources/ElementsSource";
 import MyAssetsSource from "./ui/assets/sources/MyAssetsSource";
 import ArchitectureKitSource from "./ui/assets/sources/ArchitectureKitSource";
@@ -124,10 +121,7 @@ export function createEditor(api, settings) {
   editor.registerSource(new ArchitectureKitSource(api));
   editor.registerSource(new RockKitSource(api));
   editor.registerSource(new SketchfabSource(api));
-  editor.registerSource(new BingImagesSource(api));
-  editor.registerSource(new BingVideosSource(api));
   editor.registerSource(new HubsSoundPackSource(editor));
-  editor.registerSource(new TenorSource(api));
 
   return editor;
 }
