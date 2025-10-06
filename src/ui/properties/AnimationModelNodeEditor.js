@@ -20,8 +20,8 @@ export default class AnimationModelNodeEditor extends ModelNodeEditor {
     this.props.editor.setPropertiesSelected({ ...initialProps, src });
   };
 
-  onChangeAnimation = activeClipItems => {
-    this.props.editor.setPropertySelected("activeClipItems", activeClipItems || []);
+  onChangeAnimation = activeClipIndex => {
+    this.props.editor.setPropertySelected("activeClipItems", activeClipIndex || []);
   };
 
   onChangeAnimationStartOffset = animationStartOffset => {
@@ -70,10 +70,13 @@ export default class AnimationModelNodeEditor extends ModelNodeEditor {
         </InputGroup>
         <InputGroup name="Animation">
           <SelectInput
+            disabled={this.isAnimationPropertyDisabled()}
             options={node.getClipOptions()}
-            value={node.activeClipItem}
+            value={node.activeClipItems}
             onChange={this.onChangeAnimation}
+            className="basic-multi-select"
             classNamePrefix="select"
+            isMulti
           />
         </InputGroup>
         <InputGroup name="Animation Start Offset">
