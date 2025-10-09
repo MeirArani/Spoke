@@ -33,5 +33,21 @@ export default class EventNode extends EditorNodeMixin(Group) {
   copy(source, recursive = true) {
     super.copy(source, recursive);
     this.actions = source.actions;
+    return this;
+  }
+
+  clone() {
+    return new this.constructor(this.editor).copy(this, false);
+  }
+
+  prepareForExport() {
+    super.prepareForExport();
+    const exportActions = this.actions.map(action => {
+      ({ name: action.name, target: action.target });
+    });
+    this.addGLTFComponent("event", {
+      actions: exportActions
+    });
+    this.replaceObject();
   }
 }

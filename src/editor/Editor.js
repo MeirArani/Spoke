@@ -1713,7 +1713,8 @@ export default class Editor extends EventEmitter {
       return this.history.execute(new SetPropertyCommand(this, object, propertyName, value, disableCopy));
     }
 
-    if (value && value.copy && !disableCopy) {
+    // TODO: Make sure this isn't insane.
+    if (value && value.copy && !disableCopy && object[propertyName]) {
       object[propertyName].copy(value);
     } else {
       object[propertyName] = value;

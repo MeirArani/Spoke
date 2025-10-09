@@ -105,7 +105,13 @@ export default class AnimationModelNode extends ModelNode {
     return this;
   }
 
-  prepareForExport(ctx) {
-    super.prepareForExport(ctx);
+  prepareForExport() {
+    super.prepareForExport();
+    this.addGLTFComponent("animation-model", {
+      activeClipIndex: this.activeClipIndex,
+      animationStartOffset: this.animationStartOffset,
+      audioNode: this.audioNode
+    });
+    this.replaceObject();
   }
 }

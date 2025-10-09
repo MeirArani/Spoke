@@ -1,16 +1,6 @@
 import { Material, BoxBufferGeometry, Object3D, Mesh, BoxHelper, Vector3 } from "three";
 import EditorNodeMixin from "./EditorNodeMixin";
 
-const requiredProperties = [
-  "target",
-  "enterComponent",
-  "enterProperty",
-  "enterValue",
-  "leaveComponent",
-  "leaveProperty",
-  "leaveValue"
-];
-
 export default class CollisionTriggerNode extends EditorNodeMixin(Object3D) {
   static componentName = "collision-trigger";
 
@@ -25,13 +15,8 @@ export default class CollisionTriggerNode extends EditorNodeMixin(Object3D) {
 
     const props = json.components.find(c => c.name === "trigger-volume").props;
 
-    node.target = props.target;
-    node.enterComponent = props.enterComponent;
-    node.enterProperty = props.enterProperty;
-    node.enterValue = props.enterValue;
-    node.leaveComponent = props.leaveComponent;
-    node.leaveProperty = props.leaveProperty;
-    node.leaveValue = props.leaveValue;
+    node.enterEvent = props.enterEvent;
+    node.leaveEvent = props.leaveEvent;
 
     return node;
   }
@@ -44,13 +29,8 @@ export default class CollisionTriggerNode extends EditorNodeMixin(Object3D) {
     box.layers.set(1);
     this.helper = box;
     this.add(box);
-    this.target = null;
-    this.enterComponent = null;
-    this.enterProperty = null;
-    this.enterValue = null;
-    this.leaveComponent = null;
-    this.leaveProperty = null;
-    this.leaveValue = null;
+    this.enterEvent = null;
+    this.leaveEvent = null;
   }
 
   copy(source, recursive = true) {
@@ -68,13 +48,8 @@ export default class CollisionTriggerNode extends EditorNodeMixin(Object3D) {
       }
     }
 
-    this.target = source.target;
-    this.enterComponent = source.enterComponent;
-    this.enterProperty = source.enterProperty;
-    this.enterValue = source.enterValue;
-    this.leaveComponent = source.leaveComponent;
-    this.leaveProperty = source.leaveProperty;
-    this.leaveValue = source.leaveValue;
+    this.enterEvent = source.enterEvent;
+    this.leaveEvent = source.leaveEvent;
 
     return this;
   }
@@ -82,13 +57,8 @@ export default class CollisionTriggerNode extends EditorNodeMixin(Object3D) {
   serialize() {
     return super.serialize({
       "trigger-volume": {
-        target: this.target,
-        enterComponent: this.enterComponent,
-        enterProperty: this.enterProperty,
-        enterValue: this.enterValue,
-        leaveComponent: this.leaveComponent,
-        leaveProperty: this.leaveProperty,
-        leaveValue: this.leaveValue
+        enterEvent: this.enterEvent,
+        leaveEvent: this.leaveEvent
       }
     });
   }
@@ -97,25 +67,16 @@ export default class CollisionTriggerNode extends EditorNodeMixin(Object3D) {
     super.prepareForExport();
     this.remove(this.helper);
 
-    for (const prop of requiredProperties) {
-      if (this[prop] === null || this[prop] === undefined) {
-        console.warn(`CollisionTriggerNode: property "${prop}" is required. Skipping...`);
-        return;
-      }
-    }
-
     const scale = new Vector3();
     this.getWorldScale(scale);
 
-    this.addGLTFComponent("trigger-volume", {
+    this.addGLTFComponent("collision-trigger", {
       size: { x: scale.x, y: scale.y, z: scale.z },
-      target: this.gltfIndexForUUID(this.target),
-      enterComponent: this.enterComponent,
-      enterProperty: this.enterProperty,
-      enterValue: this.enterValue,
-      leaveComponent: this.leaveComponent,
-      leaveProperty: this.leaveProperty,
-      leaveValue: this.leaveValue
+      triggerType: "reference", //TODO: Investigate
+      isGlobal: false, //TODO: Investigate
+      enterEvent: this.enterEvent,
+      leaveEvent: this.this.leaveEvent
     });
+    this.replaceObject();
   }
 }
