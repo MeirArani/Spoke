@@ -86,7 +86,6 @@ export default function EventNodeEditor(props) {
     let play = true;
     switch (action.name) {
       case "animationModelPlay":
-        break;
       case "animationModelStop":
         play = false;
         render = (

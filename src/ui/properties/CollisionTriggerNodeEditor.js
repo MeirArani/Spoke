@@ -21,12 +21,10 @@ export default function CollisionTriggerNodeEditor(props) {
 
   const onChangeEnterEvent = selection => {
     props.editor.setPropertySelected("enterEvent", selection);
-    setEnterEvent(selection);
   };
 
   const onChangeLeaveEvent = selection => {
     props.editor.setPropertySelected("leaveEvent", selection);
-    setLeaveEvent(selection);
   };
 
   return (
