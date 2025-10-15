@@ -13,7 +13,7 @@ export default class CollisionTriggerNode extends EditorNodeMixin(Object3D) {
   static async deserialize(editor, json) {
     const node = await super.deserialize(editor, json);
 
-    const props = json.components.find(c => c.name === "trigger-volume").props;
+    const props = json.components.find(c => c.name === "collision-trigger").props;
 
     node.enterEvent = props.enterEvent;
     node.leaveEvent = props.leaveEvent;
@@ -56,7 +56,7 @@ export default class CollisionTriggerNode extends EditorNodeMixin(Object3D) {
 
   serialize() {
     return super.serialize({
-      "trigger-volume": {
+      "collision-trigger": {
         enterEvent: this.enterEvent,
         leaveEvent: this.leaveEvent
       }
@@ -74,8 +74,8 @@ export default class CollisionTriggerNode extends EditorNodeMixin(Object3D) {
       size: { x: scale.x, y: scale.y, z: scale.z },
       triggerType: "reference", //TODO: Investigate
       isGlobal: false, //TODO: Investigate
-      enterEvent: this.enterEvent,
-      leaveEvent: this.this.leaveEvent
+      enterEvent: this.gltfIndexForUUID(this.enterEvent),
+      leaveEvent: this.gltfIndexForUUID(this.leaveEvent)
     });
     this.replaceObject();
   }

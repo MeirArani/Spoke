@@ -1,23 +1,32 @@
-import ModelNode from "./ModelNode";
+import GenericModelNode from "./GenericModelNode";
 
-export default class InteractTriggerNode extends ModelNode {
+export default class InteractTriggerNode extends GenericModelNode {
   static nodeName = "Interact Trigger";
 
-  static componentName = "interact-trigger";
+  static componentName = "interact-gltf-model";
 
   static initialElementProps = {
     initialScale: "fit",
-    src: "https://sketchfab.com/models/a4c500d7358a4a199b6a5cd35f416466"
+    src: "https://hubs.local:9090/assets/models/loading-cube-7dcc3b81897e68b740c1cf12b6cf4c3f.glb"
   };
 
-  static async deserialize(editor, json, _loadAsync, _onError) {
-    const node = await super.deserialize(editor, json);
+  static async deserialize(editor, json, loadAsync, onError) {
+    const node = await super.deserialize(editor, json, loadAsync, onError);
 
+    const triggerComponent = json.components.find(c => c.name === this.componentName);
+
+    if (triggerComponent && triggerComponent.props) {
+      const { pressedEvent } = triggerComponent.props;
+      if (pressedEvent !== undefined) {
+        node.pressedEvent = pressedEvent;
+      }
+    }
     return node;
   }
 
   constructor(editor) {
     super(editor);
+    this.type = "InteractTrigger";
     this.pressedEvent = null;
   }
 
@@ -25,18 +34,26 @@ export default class InteractTriggerNode extends ModelNode {
     super.copy(source, recursive);
     this.pressedEvent = source.pressedEvent;
 
-    this.updateStaticModes();
-
     return this;
   }
 
-  prepareForExport(_ctx) {
+  serialize() {
+    return super.serialize({
+      "interact-trigger": {
+        triggerType: "reference",
+        isGlobal: false,
+        pressedEvent: this.pressedEvent
+      }
+    });
+  }
+
+  prepareForExport() {
     super.prepareForExport();
 
     this.addGLTFComponent("interact-trigger", {
       triggerType: "reference",
       isGlobal: false,
-      pressedEvent: this.pressedEvent // TODO: ADD!
+      pressedEvent: this.gltfIndexForUUID(this.pressedEvent)
     });
     this.replaceObject();
   }

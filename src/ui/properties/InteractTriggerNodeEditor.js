@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import NodeEditor from "./NodeEditor";
 import SelectInput from "../inputs/SelectInput";
@@ -12,13 +12,6 @@ import { GLTFInfo } from "../inputs/GLTFInfo";
 export default function InteractTriggerNodeEditor(props) {
   const node = props.node;
   const editor = props.editor;
-
-  const [pressedEvent, setPressedEvent] = useState(node.pressedEvent);
-  console.log(pressedEvent);
-
-  useEffect(() => {
-    setPressedEvent(node.pressedEvent);
-  }, [node.pressedEvent]);
 
   const onChangeSrc = (src, initialProps) => {
     editor.setPropertiesSelected({ ...initialProps, src });
@@ -44,17 +37,16 @@ export default function InteractTriggerNodeEditor(props) {
     editor.setPropertySelected("pressedEvent", pressedEvent);
   };
 
+  const options = editor.scene.getNodesByType(EventNode).map(node => {
+    return { label: node.name, value: node.uuid, nodeName: node.nodeName };
+  });
+
   return (
     <NodeEditor description={InteractTriggerNodeEditor.description} {...props}>
       <InputGroup name="Model Url">
         <ModelInput value={node.src} onChange={onChangeSrc} />
       </InputGroup>
-      <SelectInput
-        value={node.pressedEvent}
-        options={editor.scene.getNodesByType(EventNode)}
-        placeholder={node.pressedEvent || "None"}
-        onChange={onChangePressedEvent}
-      />
+      <SelectInput value={node.pressedEvent} options={options} placeholder={"None"} onChange={onChangePressedEvent} />
       <InputGroup name="Walkable">
         <BooleanInput value={node.walkable} onChange={onChangeWalkable} />
       </InputGroup>
@@ -80,5 +72,6 @@ InteractTriggerNodeEditor.description = "A 3D model that triggers an event";
 InteractTriggerNodeEditor.propTypes = {
   editor: PropTypes.object,
   node: PropTypes.object,
-  multiEdit: PropTypes.bool
+  multiEdit: PropTypes.bool,
+  options: PropTypes.array
 };

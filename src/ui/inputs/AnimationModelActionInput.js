@@ -5,21 +5,16 @@ import SelectInput from "./SelectInput";
 import PropTypes from "prop-types";
 
 export default function AnimationModelActionInput(props) {
-  const options = props.animationModels.map(model => {
-    return { label: model.name, value: model };
-  });
-  let value = props.target;
-
-  const onSelection = selection => {
-    value = selection;
-    props.onSelection("target", selection);
-  };
-
   return (
     <ActionProperty>
       <ActionLabel>Target</ActionLabel>
       <ActionSelection>
-        <SelectInput value={value} options={options} placeholder={"Select node..."} onChange={onSelection} />
+        <SelectInput
+          value={props.target}
+          options={props.options}
+          placeholder={"Select node..."}
+          onChange={selection => props.onSelection("target", selection)}
+        />
       </ActionSelection>
     </ActionProperty>
   );
@@ -28,5 +23,6 @@ export default function AnimationModelActionInput(props) {
 AnimationModelActionInput.propTypes = {
   animationModels: PropTypes.array,
   target: PropTypes.object,
-  onSelection: PropTypes.func
+  onSelection: PropTypes.func,
+  options: PropTypes.array
 };

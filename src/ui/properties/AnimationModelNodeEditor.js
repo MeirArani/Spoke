@@ -20,8 +20,8 @@ export default class AnimationModelNodeEditor extends ModelNodeEditor {
     this.props.editor.setPropertiesSelected({ ...initialProps, src });
   };
 
-  onChangeAnimation = activeClipIndex => {
-    this.props.editor.setPropertySelected("activeClipItems", activeClipIndex || []);
+  onChangeAnimation = selected => {
+    this.props.editor.setPropertySelected("activeClipIndex", selected);
   };
 
   onChangeAnimationStartOffset = animationStartOffset => {
@@ -55,10 +55,10 @@ export default class AnimationModelNodeEditor extends ModelNodeEditor {
 
     const getAudioNodes = () => {
       const audioNodes = node.editor && node.editor.scene ? node.editor.scene.getNodesByType(AudioNode) : [];
-      const ret = audioNodes.map(node => ({ label: node.name, value: node }));
+      const ret = audioNodes.map(node => ({ label: node.name, value: node.uuid, nodeName: node.nodeName }));
 
       if (ret.length == 0) {
-        ret.unshift({ label: "None", value: -1 });
+        ret.unshift({ label: "None", value: null });
       }
       return ret;
     };
@@ -72,11 +72,8 @@ export default class AnimationModelNodeEditor extends ModelNodeEditor {
           <SelectInput
             disabled={this.isAnimationPropertyDisabled()}
             options={node.getClipOptions()}
-            value={node.activeClipItems}
+            value={[node.activeClip]}
             onChange={this.onChangeAnimation}
-            className="basic-multi-select"
-            classNamePrefix="select"
-            isMulti
           />
         </InputGroup>
         <InputGroup name="Animation Start Offset">
@@ -89,7 +86,7 @@ export default class AnimationModelNodeEditor extends ModelNodeEditor {
           <SelectInput
             options={getAudioNodes()}
             value={node.audioNode}
-            placeholder={node.audioNode.name || "Select..."}
+            placeholder={"Select..."}
             onChange={this.onChangeAudioNode}
             classNamePrefix="select"
           />

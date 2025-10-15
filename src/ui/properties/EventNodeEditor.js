@@ -82,19 +82,38 @@ export default function EventNodeEditor(props) {
       saveActions(newState);
     };
 
+    const getOptions = (...types) => {
+      const options = [];
+      types.forEach(type => {
+        scene.getNodesByType(type).forEach(option => {
+          options.push({ label: option.name, value: option.uuid, nodeName: option.nodeName });
+        });
+      });
+      return options;
+    };
+
     let render = null;
-    let play = true;
     switch (action.name) {
       case "animationModelPlay":
-      case "animationModelStop":
-        play = false;
         render = (
           <AnimationModelActionInput
             isTop={isTop}
             isBottom={isBottom}
-            animationModels={scene.getNodesByType(AnimationModelNode)}
+            options={getOptions(AnimationModelNode)}
             target={action.target}
-            play={play}
+            play={true}
+            onSelection={updateAction}
+          />
+        );
+        break;
+      case "animationModelStop":
+        render = (
+          <AnimationModelActionInput
+            isTop={isTop}
+            isBottom={isBottom}
+            options={getOptions(AnimationModelNode)}
+            target={action.target}
+            play={false}
             onSelection={updateAction}
           />
         );
@@ -116,7 +135,7 @@ export default function EventNodeEditor(props) {
             isTop={isTop}
             isBottom={isBottom}
             onSelection={updateAction}
-            models={scene.getNodesByType(ModelNode).concat(scene.getNodesByType(AnimationModelNode))}
+            options={getOptions(ModelNode, AnimationModelNode, InteractTriggerNode)}
             target={action.target}
             visible={action.visible}
           />
@@ -130,7 +149,7 @@ export default function EventNodeEditor(props) {
             onSelection={updateAction}
             target={action.target}
             text={action.text}
-            textNodes={scene.getNodesByType(TroikaTextNode)}
+            options={getOptions(TroikaTextNode)}
           />
         );
         break;
@@ -148,8 +167,8 @@ export default function EventNodeEditor(props) {
             targetTrigger={action.targetTrigger}
             eventType={action.eventType}
             event={action.event}
-            triggers={scene.getNodesByType(InteractTriggerNode).concat(scene.getNodesByType(CollisionTriggerNode))}
-            events={scene.getNodesByType(EventNode)}
+            triggerOptions={getOptions(InteractTriggerNode, CollisionTriggerNode)}
+            eventOptions={getOptions(EventNode)}
           />
         );
         break;
@@ -201,5 +220,6 @@ EventNodeEditor.description = "Trigger a series of actions";
 
 EventNodeEditor.propTypes = {
   node: PropTypes.object,
-  editor: PropTypes.object
+  editor: PropTypes.object,
+  options: PropTypes.array
 };

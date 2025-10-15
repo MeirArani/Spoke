@@ -1714,7 +1714,7 @@ export default class Editor extends EventEmitter {
     }
 
     // TODO: Make sure this isn't insane.
-    if (value && value.copy && !disableCopy && object[propertyName]) {
+    if (value && value.copy && !disableCopy && object[propertyName] && object[propertyName].copy) {
       object[propertyName].copy(value);
     } else {
       object[propertyName] = value;

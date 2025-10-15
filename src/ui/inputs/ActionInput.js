@@ -141,5 +141,5 @@ ActionArrows.propTypes = {
 
 ActionDelete.propTypes = {
   onRemove: PropTypes.func,
-  uuid: PropTypes.uuid
+  uuid: PropTypes.string
 };

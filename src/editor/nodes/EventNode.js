@@ -6,14 +6,12 @@ export default class EventNode extends EditorNodeMixin(Group) {
 
   static nodeName = "Event";
 
-  static async deserialize(editor, json, loadAsync) {
+  static async deserialize(editor, json) {
     const node = await super.deserialize(editor, json);
 
-    loadAsync(async () => {
-      const { actions } = json.components.find(c => c.name === "event").props;
-      actions.forEach(action => {
-        this.actions.push(action);
-      });
+    const { actions } = json.components.find(c => c.name === "event").props;
+    actions.forEach(action => {
+      node.actions.push(action);
     });
 
     return node;
@@ -43,7 +41,19 @@ export default class EventNode extends EditorNodeMixin(Group) {
   prepareForExport() {
     super.prepareForExport();
     const exportActions = this.actions.map(action => {
-      ({ name: action.name, target: action.target });
+      const ret = action;
+      switch (action.name) {
+        case "animationModelPlay":
+        case "animationModelStop":
+        case "changeVisible":
+        case "changeTroikaText":
+          ret.target = this.gltfIndexForUUID(action.target);
+          break;
+        case "switchEvent":
+          ret.targetTrigger = this.gltfIndexForUUID(action.targetTrigger);
+          ret.event = this.gltfIndexForUUID(action.event);
+      }
+      return ret;
     });
     this.addGLTFComponent("event", {
       actions: exportActions

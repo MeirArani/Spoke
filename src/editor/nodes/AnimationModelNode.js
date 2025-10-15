@@ -1,61 +1,41 @@
-import ModelNode from "./ModelNode";
-import AudioNode from "./AudioNode";
+import GenericModelNode from "./GenericModelNode";
 
-export default class AnimationModelNode extends ModelNode {
+export default class AnimationModelNode extends GenericModelNode {
   static nodeName = "Animation Model";
 
   static componentName = "animation-gltf-model";
 
   static initialElementProps = {
     initialScale: "fit",
-    src: "https://sketchfab.com/models/a4c500d7358a4a199b6a5cd35f416466"
+    src: "https://hubs.local:9090/assets/models/loading-cube-7dcc3b81897e68b740c1cf12b6cf4c3f.glb"
   };
 
   activeClipItem = this.activeClipIndex;
 
   static async deserialize(editor, json, loadAsync, onError) {
-    const node = await super.deserialize(editor, json);
+    const node = await super.deserialize(editor, json, loadAsync, onError);
 
-    loadAsync(
-      (async () => {
-        const { src, attribution } = json.components.find(c => c.name === "gltf-model").props;
+    const animationComponent = json.components.find(c => c.name === "animation-model");
 
-        await node.load(src, onError);
+    if (animationComponent && animationComponent.props) {
+      const { activeClipIndex, animationStartOffset, audioNode } = animationComponent.props;
 
-        // Legacy, might be a raw string left over before switch to JSON.
-        if (attribution && typeof attribution === "string") {
-          const [name, author] = attribution.split(" by ");
-          node.attribution = node.attribution || {};
-          Object.assign(node.attribution, author ? { author: author } : null, name ? { title: name } : null);
-        } else {
-          node.attribution = attribution;
+      if (animationStartOffset !== undefined) {
+        node.animationStartOffset = animationStartOffset;
+      }
+
+      if (audioNode !== undefined) {
+        node.audioNode = audioNode;
+      }
+
+      if (activeClipIndex !== undefined && node.model && node.model.animations) {
+        // DEPRECATED: Old loop-animation component stored the clip name rather than the clip index
+
+        if (activeClipIndex !== -1) {
+          node.activeClipIndex = activeClipIndex;
         }
-
-        node.combine = !!json.components.find(c => c.name === "combine");
-
-        const animationComponent = json.components.find(c => c.name === "animation-model");
-
-        if (animationComponent && animationComponent.props) {
-          const { activeClipIndex, animationStartOffset, audioNode } = animationComponent.props;
-
-          if (animationStartOffset !== undefined) {
-            node.animationStartOffset = animationStartOffset;
-          }
-
-          if (audioNode !== undefined) {
-            node.audioNode = audioNode;
-          }
-
-          if (activeClipIndex !== undefined && node.model && node.model.animations) {
-            // DEPRECATED: Old loop-animation component stored the clip name rather than the clip index
-
-            if (activeClipIndex !== -1) {
-              node.activeClipItems = node.getActiveItems([activeClipIndex]);
-            }
-          }
-        }
-      })()
-    );
+      }
+    }
 
     return node;
   }
@@ -65,34 +45,26 @@ export default class AnimationModelNode extends ModelNode {
     this.type = "AnimationModel";
     this.activeClipIndex = {};
     this.animationStartOffset = 0.0;
-    this.audioNode = new AudioNode(editor);
-    this.audioNode.name = "Select audio node...";
+    this.audioNode = null;
+  }
+
+  get activeClip() {
+    return this.getClipOptions()[this.activeClipIndex];
   }
 
   serialize() {
-    const components = {
-      "animation-gltf-model": {
-        src: this._canonicalUrl,
-        attribution: this.attribution
-      }
-    };
-
-    const toAdd =
-      this.activeClipIndices.length > 0
-        ? {
-            activeClipIndex: this.activeClipIndex,
-            animationStartOffset: this.animationStartOffset,
-            audioNode: this.audioNode
-          }
-        : { audioNode: this.audioNode };
-
-    components["animation-model"] = toAdd;
-
-    if (this.combine) {
-      components.combine = {};
+    const toAdd = {};
+    if (this.activeClipIndex || this.activeClipIndex >= 0) {
+      toAdd.activeClipIndex = this.activeClipIndex;
+      toAdd.animationStartOffset = this.animationStartOffset;
+    }
+    if (this.audioNode) {
+      toAdd.audioNode = this.audioNode;
     }
 
-    return super.serialize(components);
+    return super.serialize({
+      "animation-model": toAdd
+    });
   }
 
   copy(source, recursive = true) {
@@ -105,12 +77,12 @@ export default class AnimationModelNode extends ModelNode {
     return this;
   }
 
-  prepareForExport() {
-    super.prepareForExport();
+  prepareForExport(ctx) {
+    super.prepareForExport(ctx);
     this.addGLTFComponent("animation-model", {
       activeClipIndex: this.activeClipIndex,
       animationStartOffset: this.animationStartOffset,
-      audioNode: this.audioNode
+      audioNode: this.gltfIndexForUUID(this.audioNode)
     });
     this.replaceObject();
   }

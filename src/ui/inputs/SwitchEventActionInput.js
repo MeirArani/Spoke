@@ -4,16 +4,16 @@ import { ActionLabel, ActionSelection } from "./ActionStyles";
 import SelectInput from "./SelectInput";
 import PropTypes from "prop-types";
 
+const pressedEventTypes = [{ label: "PressedEvent", value: "PressedEvent" }];
+const collisionEventTypes = [
+  { label: "EnterEvent", value: "EnterEvent" },
+  { label: "LeaveEvent", value: "LeaveEvent" }
+];
+
 export default function SwitchEventAction(props) {
   let targetTrigger = props.targetTrigger;
   let eventType = props.eventType;
   let event = props.event;
-
-  const pressedEventTypes = [{ label: "PressedEvent", value: "PressedEvent" }];
-  const collisionEventTypes = [
-    { label: "EnterEvent", value: "EnterEvent" },
-    { label: "LeaveEvent", value: "LeaveEvent" }
-  ];
 
   const onTriggerChange = trigger => {
     if (targetTrigger && trigger.nodeName !== targetTrigger.nodeName) {
@@ -34,18 +34,10 @@ export default function SwitchEventAction(props) {
     props.onSelection("event", newEvent);
   };
 
-  const triggerOptions = props.triggers.map(trigger => {
-    return { label: trigger.name, value: trigger };
-  });
-
   let eventTypeOptions = [];
   if (targetTrigger) {
     eventTypeOptions = props.targetTrigger.nodeName === "Interact Trigger" ? pressedEventTypes : collisionEventTypes;
   }
-
-  const eventOptions = props.events.map(event => {
-    return { label: event.name, value: event };
-  });
 
   return (
     <>
@@ -54,7 +46,7 @@ export default function SwitchEventAction(props) {
         <ActionSelection>
           <SelectInput
             value={targetTrigger}
-            options={triggerOptions}
+            options={props.triggerOptions}
             placeholder={"Select node..."}
             onChange={onTriggerChange}
           />
@@ -79,7 +71,7 @@ export default function SwitchEventAction(props) {
         <ActionSelection>
           <SelectInput
             value={event}
-            options={eventOptions}
+            options={props.eventOptions}
             placeholder={"Select node..."}
             onChange={onEventChange}
             disabled={targetTrigger === null}
@@ -96,5 +88,7 @@ SwitchEventAction.propTypes = {
   event: PropTypes.object,
   onSelection: PropTypes.func,
   triggers: PropTypes.map,
-  events: PropTypes.array
+  events: PropTypes.array,
+  triggerOptions: PropTypes.array,
+  eventOptions: PropTypes.array
 };

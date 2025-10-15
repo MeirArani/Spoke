@@ -31,5 +31,18 @@ export default class GroupNode extends EditorNodeMixin(Group) {
   copy(source, recursive = true) {
     super.copy(source, recursive);
     this.jumpEnabled = source.jumpEnabled;
+    return this;
+  }
+
+  clone() {
+    return new this.constructor(this.editor).copy(this, false);
+  }
+
+  prepareForExport() {
+    super.prepareForExport();
+    this.addGLTFComponent("jump", {
+      jumpEnabled: this.jumpEnabled
+    });
+    this.replaceObject();
   }
 }

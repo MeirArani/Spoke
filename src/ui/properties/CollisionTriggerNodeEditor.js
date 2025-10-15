@@ -11,7 +11,7 @@ export default function CollisionTriggerNodeEditor(props) {
   const [leaveEvent, setLeaveEvent] = useState(props.node.leaveEvent);
 
   const eventOptions = props.editor.scene.getNodesByType(EventNode).map(option => {
-    return { label: option.name, value: option };
+    return { label: option.name, value: option.uuid, nodeName: option.nodeName };
   });
 
   useEffect(() => {

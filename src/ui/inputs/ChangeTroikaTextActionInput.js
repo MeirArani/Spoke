@@ -6,10 +6,6 @@ import TextAreaInput from "./TextAreaInput";
 import PropTypes from "prop-types";
 
 export default function ChangeTroikaTextAction(props) {
-  const options = props.textNodes.map(textNode => {
-    return { label: textNode.name, value: textNode };
-  });
-
   let target = props.target;
   let text = props.text;
 
@@ -28,7 +24,12 @@ export default function ChangeTroikaTextAction(props) {
       <ActionProperty>
         <ActionLabel>Target</ActionLabel>
         <ActionSelection>
-          <SelectInput value={target} options={options} placeholder={"Select node..."} onChange={onTargetSelection} />
+          <SelectInput
+            value={target}
+            options={props.options}
+            placeholder={"Select node..."}
+            onChange={onTargetSelection}
+          />
         </ActionSelection>
       </ActionProperty>
 
@@ -46,5 +47,6 @@ ChangeTroikaTextAction.propTypes = {
   textNodes: PropTypes.array,
   target: PropTypes.object,
   text: PropTypes.text,
-  onSelection: PropTypes.func
+  onSelection: PropTypes.func,
+  options: PropTypes.array
 };
