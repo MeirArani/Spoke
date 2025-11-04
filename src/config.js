@@ -72,12 +72,15 @@ import JumpNodeEditor from "./ui/properties/JumpNodeEditor";
 import EventNode from "./editor/nodes/EventNode";
 import EventNodeEditor from "./ui/properties/EventNodeEditor";
 
-import CollisionTriggerNode from "./editor/nodes/CollisionTrigger";
+import CollisionTriggerNode from "./editor/nodes/CollisionTriggerNode";
 import CollisionTriggerNodeEditor from "./ui/properties/CollisionTriggerNodeEditor";
 import AnimationModelNode from "./editor/nodes/AnimationModelNode";
 import AnimationModelNodeEditor from "./ui/properties/AnimationModelNodeEditor";
 import InteractTriggerNode from "./editor/nodes/InteractTriggerNode";
 import InteractTriggerNodeEditor from "./ui/properties/InteractTriggerNodeEditor";
+
+import GlobalMicNode from "./editor/nodes/GlobalMicNode";
+import GlobalMicNodeEditor from "./ui/properties/GlobalMicNodeEditor";
 
 export function createEditor(api, settings) {
   const editor = new Editor(api, settings);
@@ -116,6 +119,7 @@ export function createEditor(api, settings) {
   editor.registerNode(JumpNode, JumpNodeEditor);
   editor.registerNode(CollisionTriggerNode, CollisionTriggerNodeEditor);
   editor.registerNode(InteractTriggerNode, InteractTriggerNodeEditor);
+  editor.registerNode(GlobalMicNode, GlobalMicNodeEditor);
 
   editor.registerSource(new ElementsSource(editor));
   editor.registerSource(new MyAssetsSource(editor));

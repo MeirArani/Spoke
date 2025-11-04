@@ -9,7 +9,7 @@ import AnimationModelNode from "../../editor/nodes/AnimationModelNode";
 import ModelNode from "../../editor/nodes/ModelNode";
 import InteractTriggerNode from "../../editor/nodes/InteractTriggerNode";
 import TroikaTextNode from "../../editor/nodes/TroikaTextNode";
-import CollisionTriggerNode from "../../editor/nodes/CollisionTrigger";
+import CollisionTriggerNode from "../../editor/nodes/CollisionTriggerNode";
 import EventNode from "../../editor/nodes/EventNode";
 import AnimationModelActionInput from "../inputs/AnimationModelActionInput";
 import AudioPlayActionInput from "../inputs/AudioPlayActionInput";
