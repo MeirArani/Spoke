@@ -8,10 +8,9 @@ import {
   UniformsUtils,
   BackSide,
   Mesh,
-  UniformsLib
+  UniformsLib,
+  PMREMGenerator
 } from "three";
-import { PMREMGenerator } from "three/examples/jsm/pmrem/PMREMGenerator";
-import { PMREMCubeUVPacker } from "three/examples/jsm/pmrem/PMREMCubeUVPacker";
 
 /**
  * @author zz85 / https://github.com/zz85
@@ -344,14 +343,11 @@ export default class Sky extends Object3D {
     this.add(this.sky);
     const vrEnabled = renderer.vr.enabled;
     renderer.vr.enabled = false;
-    const pmremGenerator = new PMREMGenerator(this.cubeCamera.renderTarget.texture);
-    pmremGenerator.update(renderer);
-    const pmremCubeUVPacker = new PMREMCubeUVPacker(pmremGenerator.cubeLods);
-    pmremCubeUVPacker.update(renderer);
+    const pmremGenerator = PMREMGenerator(renderer);
+    const map = pmremGenerator.fromScene(this.skyScene).texture;
     renderer.vr.enabled = vrEnabled;
     pmremGenerator.dispose();
-    pmremCubeUVPacker.dispose();
-    return pmremCubeUVPacker.CubeUVRenderTarget.texture;
+    return map;
   }
 
   copy(source, recursive = true) {
