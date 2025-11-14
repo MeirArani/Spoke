@@ -1,4 +1,4 @@
-import { Math as _Math, Scene, Group, Object3D, Fog, FogExp2, Color } from "three";
+import { MathUtils as _Math, Scene, Group, Object3D, Fog, FogExp2, Color } from "three";
 import EditorNodeMixin from "./EditorNodeMixin";
 import { setStaticMode, StaticModes, isStatic } from "../StaticMode";
 import sortEntities from "../utils/sortEntities";

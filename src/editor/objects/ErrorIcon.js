@@ -1,4 +1,4 @@
-import { Mesh, PlaneBufferGeometry, MeshBasicMaterial, DoubleSide } from "three";
+import { Mesh, PlaneGeometry, MeshBasicMaterial, DoubleSide } from "three";
 import { RGBAFormat, NearestFilter } from "three";
 import mediaErrorImageUrl from "../../assets/media-error.png";
 import loadTexture from "../utils/loadTexture";
@@ -28,7 +28,7 @@ export default class ErrorIcon extends Mesh {
       throw new Error("ErrorIcon must be loaded before it can be used. Await ErrorIcon.load()");
     }
 
-    const geometry = new PlaneBufferGeometry();
+    const geometry = new PlaneGeometry();
     const material = new MeshBasicMaterial();
     material.map = errorTexture;
     material.side = DoubleSide;

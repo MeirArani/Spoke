@@ -2,7 +2,7 @@ import {
   VideoTexture,
   LinearFilter,
   sRGBEncoding,
-  PlaneBufferGeometry,
+  PlaneGeometry,
   MeshBasicMaterial,
   DoubleSide,
   Mesh,
@@ -28,7 +28,7 @@ export default class Video extends AudioSource {
     this._videoTexture.encoding = sRGBEncoding;
     this._texture = this._videoTexture;
 
-    const geometry = new PlaneBufferGeometry();
+    const geometry = new PlaneGeometry();
     const material = new MeshBasicMaterial();
     material.map = this._texture;
     material.side = DoubleSide;
@@ -101,7 +101,7 @@ export default class Video extends AudioSource {
       // invert the geometry on the x-axis so that all of the faces point inward
       geometry.scale(-1, 1, 1);
     } else {
-      geometry = new PlaneBufferGeometry();
+      geometry = new PlaneGeometry();
       material.side = DoubleSide;
     }
 

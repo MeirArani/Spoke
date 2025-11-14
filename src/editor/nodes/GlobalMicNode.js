@@ -1,4 +1,4 @@
-import { Material, BoxBufferGeometry, Object3D, Mesh, BoxHelper, Vector3 } from "three";
+import { Material, BoxGeometry, Object3D, Mesh, BoxHelper, Vector3 } from "three";
 import EditorNodeMixin from "./EditorNodeMixin";
 
 export default class GlobalMicNode extends EditorNodeMixin(Object3D) {
@@ -6,7 +6,7 @@ export default class GlobalMicNode extends EditorNodeMixin(Object3D) {
 
   static nodeName = "Global Mic";
 
-  static _geometry = new BoxBufferGeometry();
+  static _geometry = new BoxGeometry();
 
   static _material = new Material();
 

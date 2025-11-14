@@ -40,7 +40,7 @@ import {
   Loader,
   LoaderUtils,
   Material,
-  Math as _Math,
+  MathUtils as _Math,
   Matrix4,
   Mesh,
   MeshStandardMaterial,
@@ -66,7 +66,6 @@ import {
   TriangleFanDrawMode,
   TriangleStripDrawMode,
   VectorKeyframeTrack,
-  VertexColors,
   sRGBEncoding
 } from "three";
 
@@ -1623,7 +1622,7 @@ class GLTFLoader {
 
         if (useSkinning) cachedMaterial.skinning = true;
         if (useVertexTangents) cachedMaterial.vertexTangents = true;
-        if (useVertexColors) cachedMaterial.vertexColors = VertexColors;
+        //if (useVertexColors) cachedMaterial.vertexColors = cachedMaterial.vertexColors;
         if (useFlatShading) cachedMaterial.flatShading = true;
         if (useMorphTargets) cachedMaterial.morphTargets = true;
         if (useMorphNormals) cachedMaterial.morphNormals = true;

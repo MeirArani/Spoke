@@ -1,5 +1,5 @@
 import { Fly, FlyMapping } from "./input-mappings";
-import { Vector3, Matrix4, Quaternion, Math as _Math } from "three";
+import { Vector3, Matrix4, Quaternion, MathUtils as _Math } from "three";
 
 const EPSILON = 10e-5;
 const UP = new Vector3(0, 1, 0);
@@ -67,11 +67,7 @@ export default class FlyControls {
     const allowRotationInX =
       newCamUpY > 0 && ((newCamForwardY < extrema && newCamForwardY > -extrema) || newCamUpY > camUpY);
     if (allowRotationInX) {
-      this.camera.matrixWorld.compose(
-        worldPos,
-        candidateWorldQuat,
-        worldScale
-      );
+      this.camera.matrixWorld.compose(worldPos, candidateWorldQuat, worldScale);
       // assume that if camera.parent exists, its matrixWorld is up to date
       parentInverse.getInverse(this.camera.parent ? this.camera.parent.matrixWorld : IDENTITY);
       this.camera.matrix.multiplyMatrices(parentInverse, this.camera.matrixWorld);
@@ -84,11 +80,7 @@ export default class FlyControls {
       quat.setFromAxisAngle(UP, input.get(Fly.lookX) * this.lookSensitivity),
       worldQuat
     );
-    this.camera.matrixWorld.compose(
-      worldPos,
-      candidateWorldQuat,
-      worldScale
-    );
+    this.camera.matrixWorld.compose(worldPos, candidateWorldQuat, worldScale);
     this.camera.matrix.multiplyMatrices(parentInverse, this.camera.matrixWorld);
     this.camera.matrix.decompose(this.camera.position, this.camera.quaternion, this.camera.scale);
 

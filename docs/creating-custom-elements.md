@@ -7,7 +7,7 @@ To get started we'll create a new file, `SpinningCubeNode.js`, in the `src/edito
 We'll import the `EditorNodeMixin` which wraps our `Mesh` in a class with Spoke specific lifecycle methods and more. Then we'll fill in the required parts of the `SpinningCubeNode` class.
 
 ```js
-import { Mesh, MeshBasicMaterial, BoxBufferGeometry } from "three";
+import { Mesh, MeshBasicMaterial, BoxGeometry } from "three";
 import EditorNodeMixin from "./EditorNodeMixin";
 
 export default class SpinningCubeNode extends EditorNodeMixin(Mesh) {
@@ -16,7 +16,7 @@ export default class SpinningCubeNode extends EditorNodeMixin(Mesh) {
   static nodeName = "Spinning Cube";
 
   constructor(editor) {
-    super(editor, new BoxBufferGeometry(), new MeshBasicMaterial());
+    super(editor, new BoxGeometry(), new MeshBasicMaterial());
   }
 
   serialize() {
@@ -100,7 +100,7 @@ Let's make it so we can preview this cube spinning in the editor.
 
 ```js
 // We'll import Euler for use below
-import { Mesh, MeshBasicMaterial, BoxBufferGeometry, Euler } from "three";
+import { Mesh, MeshBasicMaterial, BoxGeometry, Euler } from "three";
 import EditorNodeMixin from "./EditorNodeMixin";
 
 export default class SpinningCubeNode extends EditorNodeMixin(Mesh) {
@@ -109,7 +109,7 @@ export default class SpinningCubeNode extends EditorNodeMixin(Mesh) {
   static nodeName = "Spinning Cube";
 
   constructor(editor) {
-    super(editor, new BoxBufferGeometry(), new MeshBasicMaterial());
+    super(editor, new BoxGeometry(), new MeshBasicMaterial());
 
     // Add this variable to store the rotation when entering and exiting preview mode
     this.originalRotation = new Euler();
@@ -149,7 +149,7 @@ Now let's make it so we can set the speed. To do this we'll need a new property 
 
 ```js
 // Note we'll need to import the Math class from three, but it conflicts with the browser's Math class so we'll map it to MathUtils
-import { Mesh, MeshBasicMaterial, BoxBufferGeometry, Euler, Math as MathUtils } from "three";
+import { Mesh, MeshBasicMaterial, BoxGeometry, Euler, Math as MathUtils } from "three";
 import EditorNodeMixin from "./EditorNodeMixin";
 
 export default class SpinningCubeNode extends EditorNodeMixin(Mesh) {
@@ -174,7 +174,7 @@ export default class SpinningCubeNode extends EditorNodeMixin(Mesh) {
   }
 
   constructor(editor) {
-    super(editor, new BoxBufferGeometry(), new MeshBasicMaterial());
+    super(editor, new BoxGeometry(), new MeshBasicMaterial());
 
     // We'll set the default speed to rotate 10 degrees every second.
     this.speed = 10;
@@ -270,7 +270,7 @@ Next, let's set a texture on the cube. This will introduce us to asynchronously 
 There's a lot in this step. Loading and using assets can be a little tricky. Hopefully, you get the general idea from the code and comments. If you need more examples, try reading through the nodes in the `src/editor/nodes` directory.
 
 ```js
-import { Mesh, MeshBasicMaterial, BoxBufferGeometry, Euler, Math as MathUtils } from "three";
+import { Mesh, MeshBasicMaterial, BoxGeometry, Euler, Math as MathUtils } from "three";
 import EditorNodeMixin from "./EditorNodeMixin";
 // Add the following imports
 import { RethrownError } from "../utils/errors";
@@ -303,7 +303,7 @@ export default class SpinningCubeNode extends EditorNodeMixin(Mesh) {
   }
 
   constructor(editor) {
-    super(editor, new BoxBufferGeometry(), new MeshBasicMaterial());
+    super(editor, new BoxGeometry(), new MeshBasicMaterial());
     // We're going to be using getter/setters for the textureSrc property.
     // We still need a place to store the textureSrc value so we'll prefix it with an underscore.
     this._textureSrc = "";
@@ -478,7 +478,7 @@ We need to make sure that we can duplicate the object and handle exporting the s
 So let's implement the `copy` function.
 
 ```js
-import { Mesh, MeshBasicMaterial, BoxBufferGeometry, Euler, Math as MathUtils } from "three";
+import { Mesh, MeshBasicMaterial, BoxGeometry, Euler, Math as MathUtils } from "three";
 import EditorNodeMixin from "./EditorNodeMixin";
 import { RethrownError } from "../utils/errors";
 import { getObjectPerfIssues, maybeAddLargeFileIssue } from "../utils/performance";
@@ -505,7 +505,7 @@ export default class SpinningCubeNode extends EditorNodeMixin(Mesh) {
   }
 
   constructor(editor) {
-    super(editor, new BoxBufferGeometry(), new MeshBasicMaterial());
+    super(editor, new BoxGeometry(), new MeshBasicMaterial());
     this._textureSrc = "";
     this.speed = 10;
     this.originalRotation = new Euler();
@@ -615,7 +615,7 @@ So we need to add the glTF component data that lets Hubs know that this cube sho
 We're going to go ahead and create a generic `rotate` component that we'll export to Hubs. This will go in the `prepareForExport` method.
 
 ```js
-import { Mesh, MeshBasicMaterial, BoxBufferGeometry, Euler, Math as MathUtils } from "three";
+import { Mesh, MeshBasicMaterial, BoxGeometry, Euler, Math as MathUtils } from "three";
 import EditorNodeMixin from "./EditorNodeMixin";
 import { RethrownError } from "../utils/errors";
 import { getObjectPerfIssues, maybeAddLargeFileIssue } from "../utils/performance";
@@ -642,7 +642,7 @@ export default class SpinningCubeNode extends EditorNodeMixin(Mesh) {
   }
 
   constructor(editor) {
-    super(editor, new BoxBufferGeometry(), new MeshBasicMaterial());
+    super(editor, new BoxGeometry(), new MeshBasicMaterial());
     this._textureSrc = "";
     this.speed = 10;
     this.originalRotation = new Euler();

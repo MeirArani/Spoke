@@ -1,4 +1,4 @@
-import { Material, BoxBufferGeometry, Object3D, Mesh, BoxHelper, Vector3 } from "three";
+import { Material, BoxGeometry, Object3D, Mesh, BoxHelper, Vector3 } from "three";
 import EditorNodeMixin from "./EditorNodeMixin";
 
 const requiredProperties = [
@@ -18,7 +18,7 @@ export default class TriggerVolumeNode extends EditorNodeMixin(Object3D) {
 
   static nodeName = "Trigger Volume";
 
-  static _geometry = new BoxBufferGeometry();
+  static _geometry = new BoxGeometry();
 
   static _material = new Material();
 

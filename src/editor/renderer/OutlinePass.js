@@ -16,7 +16,7 @@ import {
   OrthographicCamera,
   Scene,
   Mesh,
-  PlaneBufferGeometry,
+  PlaneGeometry,
   Layers
 } from "three";
 import { CopyShader } from "three/examples/jsm/shaders/CopyShader";
@@ -217,7 +217,7 @@ export default class OutlinePass extends Pass {
     this.outlineCamera = new OrthographicCamera(-1, 1, 1, -1, 0, 1);
     this.outlineScene = new Scene();
 
-    this.quad = new Mesh(new PlaneBufferGeometry(2, 2), null);
+    this.quad = new Mesh(new PlaneGeometry(2, 2), null);
     this.quad.frustumCulled = false; // Avoid getting clipped
     this.outlineScene.add(this.quad);
 

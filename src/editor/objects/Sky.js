@@ -3,7 +3,7 @@ import {
   CubeCamera,
   Object3D,
   Vector3,
-  BoxBufferGeometry,
+  BoxGeometry,
   ShaderMaterial,
   UniformsUtils,
   BackSide,
@@ -229,7 +229,7 @@ export default class Sky extends Object3D {
     fragmentShader
   };
 
-  static _geometry = new BoxBufferGeometry(1, 1, 1);
+  static _geometry = new BoxGeometry(1, 1, 1);
 
   constructor() {
     super();

@@ -5,7 +5,7 @@ import InputGroup from "../inputs/InputGroup";
 import ColorInput from "../inputs/ColorInput";
 import NumericInputGroup from "../inputs/NumericInputGroup";
 import RadianNumericInputGroup from "../inputs/RadianNumericInputGroup";
-import { Math as _Math } from "three";
+import { MathUtils as _Math } from "three";
 import LightShadowProperties from "./LightShadowProperties";
 import { Bullseye } from "styled-icons/fa-solid/Bullseye";
 

@@ -11,7 +11,7 @@ import {
   Ray,
   Plane,
   Quaternion,
-  Math as _Math,
+  MathUtils as _Math,
   Layers
 } from "three";
 import getIntersectingNode from "../utils/getIntersectingNode";

@@ -1,4 +1,4 @@
-import { Mesh, PlaneBufferGeometry, MeshStandardMaterial, MeshPhongMaterial, Vector2, RepeatWrapping } from "three";
+import { Mesh, PlaneGeometry, MeshStandardMaterial, MeshPhongMaterial, Vector2, RepeatWrapping } from "three";
 import { SimplexNoise } from "three/examples/jsm/math/SimplexNoise";
 
 /**
@@ -21,7 +21,7 @@ class Octave {
 
 export default class SimpleWater extends Mesh {
   constructor(normalMap, resolution = 24, lowQuality = false) {
-    const geometry = new PlaneBufferGeometry(10, 10, resolution, resolution);
+    const geometry = new PlaneGeometry(10, 10, resolution, resolution);
     geometry.rotateX(-Math.PI / 2);
 
     const waterUniforms = {

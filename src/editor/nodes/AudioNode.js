@@ -1,4 +1,4 @@
-import { PlaneBufferGeometry, MeshBasicMaterial, Mesh, DoubleSide } from "three";
+import { PlaneGeometry, MeshBasicMaterial, Mesh, DoubleSide } from "three";
 import audioIconUrl from "../../assets/audio-icon.png";
 import AudioParamsNode from "./AudioParamsNode";
 import AudioSource from "../objects/AudioSource";
@@ -42,7 +42,7 @@ export default class AudioNode extends AudioParamsNode(AudioSource) {
     this._autoPlay = true;
     this.controls = true;
 
-    const geometry = new PlaneBufferGeometry();
+    const geometry = new PlaneGeometry();
     const material = new MeshBasicMaterial();
     material.map = audioHelperTexture;
     material.side = DoubleSide;

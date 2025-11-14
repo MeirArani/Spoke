@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import NumericInput from "./NumericInput";
-import { Math as _Math, Euler } from "three";
+import { MathUtils as _Math, Euler } from "three";
 import { Vector3InputContainer, Vector3Scrubber } from "./Vector3Input";
 
 const { RAD2DEG, DEG2RAD } = _Math;

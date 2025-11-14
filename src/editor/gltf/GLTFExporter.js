@@ -20,7 +20,7 @@ import {
   LinearFilter,
   LinearMipMapLinearFilter,
   LinearMipMapNearestFilter,
-  Math as _Math,
+  MathUtils as _Math,
   MirroredRepeatWrapping,
   NearestFilter,
   NearestMipMapLinearFilter,

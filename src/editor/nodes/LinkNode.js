@@ -1,5 +1,5 @@
 import EditorNodeMixin from "./EditorNodeMixin";
-import { Object3D, PlaneBufferGeometry, MeshBasicMaterial, Mesh, DoubleSide } from "three";
+import { Object3D, PlaneGeometry, MeshBasicMaterial, Mesh, DoubleSide } from "three";
 import linkIconUrl from "../../assets/link-icon.png";
 import loadTexture from "../utils/loadTexture";
 
@@ -29,7 +29,7 @@ export default class LinkNode extends EditorNodeMixin(Object3D) {
 
     this.href = "";
 
-    const geometry = new PlaneBufferGeometry();
+    const geometry = new PlaneGeometry();
     const material = new MeshBasicMaterial();
     material.map = linkHelperTexture;
     material.side = DoubleSide;
