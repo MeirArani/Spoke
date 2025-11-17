@@ -40,7 +40,7 @@
           "props": {
             "turbidity": 9,
             "rayleigh": 1.2,
-            "luminance": 0.5,
+            "skyLuminance": 0.5,
             "mieCoefficient": 0.006,
             "mieDirectionalG": 0.7,
             "inclination": 0.1,

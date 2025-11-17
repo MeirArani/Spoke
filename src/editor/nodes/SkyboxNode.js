@@ -20,7 +20,7 @@ export default class SkyboxNode extends EditorNodeMixin(Sky) {
     const {
       turbidity,
       rayleigh,
-      luminance,
+      skyLuminance,
       mieCoefficient,
       mieDirectionalG,
       inclination,
@@ -30,7 +30,7 @@ export default class SkyboxNode extends EditorNodeMixin(Sky) {
 
     node.turbidity = turbidity;
     node.rayleigh = rayleigh;
-    node.luminance = luminance;
+    node.skyLuminance = skyLuminance;
     node.mieCoefficient = mieCoefficient;
     node.mieDirectionalG = mieDirectionalG;
     node.inclination = inclination;
@@ -67,7 +67,7 @@ export default class SkyboxNode extends EditorNodeMixin(Sky) {
       skybox: {
         turbidity: this.turbidity,
         rayleigh: this.rayleigh,
-        luminance: this.luminance,
+        skyLuminance: this.skyLuminance,
         mieCoefficient: this.mieCoefficient,
         mieDirectionalG: this.mieDirectionalG,
         inclination: this.inclination,
@@ -82,7 +82,7 @@ export default class SkyboxNode extends EditorNodeMixin(Sky) {
     this.addGLTFComponent("skybox", {
       turbidity: this.turbidity,
       rayleigh: this.rayleigh,
-      luminance: this.luminance,
+      skyLuminance: this.skyLuminance,
       mieCoefficient: this.mieCoefficient,
       mieDirectionalG: this.mieDirectionalG,
       inclination: this.inclination,

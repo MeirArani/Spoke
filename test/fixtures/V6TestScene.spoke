@@ -106,7 +106,7 @@
           "props": {
             "turbidity": 6.09,
             "rayleigh": 0.82,
-            "luminance": 1.055,
+            "skyLuminance": 1.055,
             "mieCoefficient": 0.043,
             "mieDirectionalG": 0.8,
             "inclination": 0.10471975511965978,

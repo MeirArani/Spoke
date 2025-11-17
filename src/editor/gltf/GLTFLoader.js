@@ -37,7 +37,6 @@ import {
   LinearFilter,
   LinearMipMapLinearFilter,
   LinearMipMapNearestFilter,
-  Loader,
   LoaderUtils,
   Material,
   MathUtils as _Math,
@@ -1255,7 +1254,7 @@ class GLTFLoader {
 
     const assignAttributeAccessor = (accessorIndex, attributeName) => {
       return this.getDependency("accessor", accessorIndex).then(function(accessor) {
-        geometry.addAttribute(attributeName, accessor);
+        geometry.setAttribute(attributeName, accessor);
       });
     };
 
@@ -1636,7 +1635,7 @@ class GLTFLoader {
     // workarounds for mesh and geometry
 
     if (material.aoMap && geometry.attributes.uv2 === undefined && geometry.attributes.uv !== undefined) {
-      geometry.addAttribute("uv2", new BufferAttribute(geometry.attributes.uv.array, 2));
+      geometry.setAttribute("uv2", new BufferAttribute(geometry.attributes.uv.array, 2));
     }
 
     mesh.material = material;
@@ -1673,7 +1672,7 @@ class GLTFLoader {
     }
 
     // Load Texture resource.
-    let loader = Loader.Handlers.get(sourceURI);
+    let loader = textureLoader; //Loader.Handlers.get(sourceURI);
 
     if (!loader) {
       loader = textureLoader;

@@ -1381,7 +1381,7 @@
   integrity sha512-H1rQc1ZOHANWBvPcW+JpGwr+juXSxM8Q8YCkm3GhZd8REu1fHR3z99CErO1p9pkcfcxZnMdIZdIsXkOHY0NilA==
 
 "@meir_arani/three@file:node_modules/three":
-  version "0.147.3"
+  version "0.147.7"
   resolved "file:node_modules/three"
 
 "@mozillareality/easing-functions@^0.1.1":
@@ -1487,7 +1487,7 @@
     "@sentry/utils" "5.30.0"
     tslib "^1.9.3"
 
-"@sentry/core@5.30.0":
+"@sentry/core@^5.30.0", "@sentry/core@5.30.0":
   version "5.30.0"
   resolved "https://registry.npmjs.org/@sentry/core/-/core-5.30.0.tgz"
   integrity sha512-TmfrII8w1PQZSZgPpUESqjB+jC6MvZJZdLtE/0hZ+SrnKhW3x5WlYLvTXZpcWePYBku7rl2wn1RZu6uT0qCTeg==
@@ -14927,10 +14927,10 @@ three-mesh-bvh@^0.5.24:
   resolved "https://registry.npmjs.org/three-mesh-bvh/-/three-mesh-bvh-0.5.24.tgz"
   integrity sha512-VTIgfjz8aFoPKTQoMIQQv9jJD4ybFRZuKKE1/kqy78FQcuHQ0+iIWv7C5cSb2inlvs7bNMVY3yRx3RXGZfrvzQ==
 
-three@*, three@^0.147.0, "three@>= 0.123.0", three@>=0.103.0, "three@npm:@meir_arani/three@^0.147.3":
-  version "0.147.3"
-  resolved "https://registry.npmjs.org/@meir_arani/three/-/three-0.147.3.tgz"
-  integrity sha512-dTzF801cvH8f7tlYdYHtiHE9zOQ1QODg51XhaKwOzFOh6GsAXqIkI8pCig3K3RH4ynfPhDs8h6JYxx/JfXWlrw==
+three@*, three@^0.147.0, "three@>= 0.123.0", three@>=0.103.0, "three@npm:@meir_arani/three@^0.147.7":
+  version "0.147.7"
+  resolved "https://registry.npmjs.org/@meir_arani/three/-/three-0.147.7.tgz"
+  integrity sha512-xnJS5HdcDF2ZS3CwSjN3iEWJhocQFFfDs9D3KucZCBwzOuz7pWoQlEcVrlp0KI0Oe2BTwgxJVyV3VDOA8Duslg==
 
 throttle-debounce@^2.1.0:
   version "2.3.0"
