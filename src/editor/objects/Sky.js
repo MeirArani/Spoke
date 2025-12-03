@@ -10,7 +10,8 @@ import {
   Mesh,
   UniformsLib,
   PMREMGenerator,
-  WebGLCubeRenderTarget
+  WebGLCubeRenderTarget,
+  GLSL1
 } from "three";
 
 /**
@@ -227,7 +228,8 @@ export default class Sky extends Object3D {
       }
     ]),
     vertexShader,
-    fragmentShader
+    fragmentShader,
+    glslVersion: GLSL1
   };
 
   static _geometry = new BoxGeometry(1, 1, 1);
@@ -240,6 +242,7 @@ export default class Sky extends Object3D {
       vertexShader: Sky.shader.vertexShader,
       uniforms: UniformsUtils.clone(Sky.shader.uniforms),
       side: BackSide,
+      glslVersion: GLSL1,
       fog: true
     });
 

@@ -1,4 +1,4 @@
-import { Mesh, Color, PlaneGeometry, ShaderMaterial, DoubleSide, Plane, Vector3 } from "three";
+import { Mesh, Color, PlaneGeometry, ShaderMaterial, DoubleSide, Plane, Vector3, GLSL1 } from "three";
 import { addIsHelperFlag } from "./utils";
 
 /**
@@ -83,6 +83,7 @@ export default class SpokeInfiniteGridHelper extends Mesh {
       transparent: true,
       vertexShader,
       fragmentShader,
+      glslVersion: GLSL1,
 
       extensions: {
         derivatives: true

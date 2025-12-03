@@ -1,4 +1,4 @@
-import { DoubleSide, MeshBasicMaterial, sRGBEncoding, RGBFormat, RGBAFormat } from "three";
+import { DoubleSide, MeshBasicMaterial, sRGBEncoding, RGBAFormat } from "three";
 import { ALPHA_MODES } from "../../GLTFLoader";
 import { LoaderExtension } from "./LoaderExtension";
 
@@ -47,7 +47,7 @@ export class MaterialsUnlitLoaderExtension extends LoaderExtension {
       }
 
       if (metallicRoughness.baseColorTexture !== undefined) {
-        const format = alphaMode === ALPHA_MODES.OPAQUE ? RGBFormat : RGBAFormat;
+        const format = alphaMode === ALPHA_MODES.OPAQUE ? RGBAFormat : RGBAFormat;
         pending.push(
           this.loader.assignTexture(material, "map", metallicRoughness.baseColorTexture, sRGBEncoding, format)
         );

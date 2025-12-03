@@ -610,7 +610,7 @@ class GLTFExporter {
   /**
    * Process image
    * @param  {Image} image to process
-   * @param  {Integer} format of the image (e.g. THREE.RGBFormat, RGBAFormat etc)
+   * @param  {Integer} format of the image (e.g. RGBAFormat etc)
    * @param  {Boolean} flipY before writing out the image
    * @return {Integer}     Index of the processed texture in the "images" array
    */

@@ -19,7 +19,7 @@ export default class ScenePreviewCameraNode extends EditorNodeMixin(PerspectiveC
   }
 
   setFromViewport() {
-    const matrix = new Matrix4().getInverse(this.parent.matrixWorld).multiply(this.editor.camera.matrixWorld);
+    const matrix = new Matrix4().invert(this.parent.matrixWorld).multiply(this.editor.camera.matrixWorld);
     matrix.decompose(this.position, this.rotation, this.scale);
     this.editor.emit("objectsChanged", [this]);
     this.editor.emit("selectionChanged");

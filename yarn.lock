@@ -1381,7 +1381,7 @@
   integrity sha512-H1rQc1ZOHANWBvPcW+JpGwr+juXSxM8Q8YCkm3GhZd8REu1fHR3z99CErO1p9pkcfcxZnMdIZdIsXkOHY0NilA==
 
 "@meir_arani/three@file:node_modules/three":
-  version "0.147.7"
+  version "0.147.10"
   resolved "file:node_modules/three"
 
 "@mozillareality/easing-functions@^0.1.1":
@@ -1389,10 +1389,10 @@
   resolved "https://registry.npmjs.org/@mozillareality/easing-functions/-/easing-functions-0.1.1.tgz"
   integrity sha512-rApZ0OOqreMULwHZOy+fB9wRLnikelE8pMbqUmtLBhT6OSKp5dz/7pA/EjnFXJDQBR/EgZUa3vwbFlTZnUgSlw==
 
-"@mozillareality/three-batch-manager@npm:@meir_arani/three-batch-manager@latest":
-  version "0.1.11"
-  resolved "https://registry.npmjs.org/@meir_arani/three-batch-manager/-/three-batch-manager-0.1.11.tgz"
-  integrity sha512-VSQNmNGhrH8OUnJjAslCCcgXJ0iyaRqVhye1/YoJvfBIQSJRCkIFAXyq9xOmVLDfGNAn0R1ezCZxrrGWlumycQ==
+"@mozillareality/three-batch-manager@npm:@meir_arani/three-batch-manager@^0.1.19":
+  version "0.1.19"
+  resolved "https://registry.npmjs.org/@meir_arani/three-batch-manager/-/three-batch-manager-0.1.19.tgz"
+  integrity sha512-shRFdHNhjLmW0OglHyuia0q+dp9TROXTP8tzgmTIUH1Hxuqu1OuPHiCVrR2r+DYbUn/MY3a3HYdWb057NZo2Mg==
 
 "@mozillareality/three-particle-emitter@npm:@meir_arani/three-particle-emitter@latest":
   version "0.2.3"
@@ -14927,10 +14927,10 @@ three-mesh-bvh@^0.5.24:
   resolved "https://registry.npmjs.org/three-mesh-bvh/-/three-mesh-bvh-0.5.24.tgz"
   integrity sha512-VTIgfjz8aFoPKTQoMIQQv9jJD4ybFRZuKKE1/kqy78FQcuHQ0+iIWv7C5cSb2inlvs7bNMVY3yRx3RXGZfrvzQ==
 
-three@*, three@^0.147.0, "three@>= 0.123.0", three@>=0.103.0, "three@npm:@meir_arani/three@^0.147.7":
-  version "0.147.7"
-  resolved "https://registry.npmjs.org/@meir_arani/three/-/three-0.147.7.tgz"
-  integrity sha512-xnJS5HdcDF2ZS3CwSjN3iEWJhocQFFfDs9D3KucZCBwzOuz7pWoQlEcVrlp0KI0Oe2BTwgxJVyV3VDOA8Duslg==
+three@*, "three@>= 0.123.0", three@>=0.103.0, "three@npm:@meir_arani/three@^0.147.10", "three@npm:@meir_arani/three@latest":
+  version "0.147.10"
+  resolved "https://registry.npmjs.org/@meir_arani/three/-/three-0.147.10.tgz"
+  integrity sha512-THmgfhrV6x6HTrFijWfVFVV13VLcNoS4imOAoN4UqbvXdpI+8BgEwyTK6s4jOi6y7xnBuSNgVCd/hMAeFMwQfQ==
 
 throttle-debounce@^2.1.0:
   version "2.3.0"

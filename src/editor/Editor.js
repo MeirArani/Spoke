@@ -1116,7 +1116,7 @@ export default class Editor extends EventEmitter {
       // Maintain world position when reparenting.
       newParent.updateMatrixWorld();
 
-      tempMatrix1.getInverse(newParent.matrixWorld);
+      tempMatrix1.invert(newParent.matrixWorld);
 
       object.parent.updateMatrixWorld();
       tempMatrix1.multiply(object.parent.matrixWorld);
@@ -1262,7 +1262,7 @@ export default class Editor extends EventEmitter {
         spaceMatrix = space;
       }
 
-      tempMatrix1.getInverse(spaceMatrix);
+      tempMatrix1.invert(spaceMatrix);
       tempVector1.applyMatrix4(tempMatrix1);
       object.position.copy(tempVector1);
     }
@@ -1336,7 +1336,7 @@ export default class Editor extends EventEmitter {
         spaceMatrix = space;
       }
 
-      tempMatrix1.getInverse(spaceMatrix);
+      tempMatrix1.invert(spaceMatrix);
       tempVector1.applyMatrix4(tempMatrix1);
       object.position.copy(tempVector1);
     }
@@ -1409,7 +1409,7 @@ export default class Editor extends EventEmitter {
       }
 
       const newWorldQuaternion = tempQuaternion1.setFromEuler(rotation);
-      const inverseParentWorldQuaternion = tempQuaternion2.setFromRotationMatrix(spaceMatrix).inverse();
+      const inverseParentWorldQuaternion = tempQuaternion2.setFromRotationMatrix(spaceMatrix).invert();
       const newLocalQuaternion = inverseParentWorldQuaternion.multiply(newWorldQuaternion);
       object.quaternion.copy(newLocalQuaternion);
     }
@@ -1481,7 +1481,7 @@ export default class Editor extends EventEmitter {
         spaceMatrix = space;
       }
 
-      tempMatrix1.getInverse(spaceMatrix);
+      tempMatrix1.invert(spaceMatrix);
       tempVector1.copy(axis).applyMatrix4(tempMatrix1);
 
       object.rotateOnAxis(tempVector1, angle);
@@ -1536,7 +1536,7 @@ export default class Editor extends EventEmitter {
     object.updateMatrixWorld();
 
     const matrixWorld = tempMatrix1.copy(object.matrixWorld);
-    const inverseParentMatrixWorld = tempMatrix2.getInverse(object.parent.matrixWorld);
+    const inverseParentMatrixWorld = tempMatrix2.invert(object.parent.matrixWorld);
 
     const pivotToOriginMatrix = tempMatrix3.makeTranslation(-pivot.x, -pivot.y, -pivot.z);
     const originToPivotMatrix = tempMatrix4.makeTranslation(pivot.x, pivot.y, pivot.z);
@@ -1655,7 +1655,7 @@ export default class Editor extends EventEmitter {
         spaceMatrix = space;
       }
 
-      tempMatrix1.getInverse(spaceMatrix);
+      tempMatrix1.invert(spaceMatrix);
       tempVector1.applyMatrix4(tempMatrix1);
 
       tempVector1.set(

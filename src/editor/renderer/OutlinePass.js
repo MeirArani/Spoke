@@ -17,7 +17,8 @@ import {
   Scene,
   Mesh,
   PlaneGeometry,
-  Layers
+  Layers,
+  GLSL1
 } from "three";
 import { CopyShader } from "three/examples/jsm/shaders/CopyShader";
 import { Pass } from "three/examples/jsm/postprocessing/EffectComposer";
@@ -152,7 +153,8 @@ class OverlayMaterial extends ShaderMaterial {
       `,
       depthTest: false,
       depthWrite: false,
-      transparent: true
+      transparent: true,
+      glslVersion: GLSL1
     });
   }
 }
@@ -205,7 +207,8 @@ export default class OutlinePass extends Pass {
       blending: NoBlending,
       depthTest: false,
       depthWrite: false,
-      transparent: true
+      transparent: true,
+      glslVersion: GLSL1
     });
 
     this.enabled = true;
@@ -227,7 +230,7 @@ export default class OutlinePass extends Pass {
 
   render(renderer, writeBuffer, readBuffer, delta, maskActive) {
     if (this.selectedObjects.length > 0) {
-      this.oldClearColor.copy(renderer.getClearColor());
+      this.oldClearColor.copy(renderer.getClearColor(this.oldClearColor));
       this.oldClearAlpha = renderer.getClearAlpha();
       const oldAutoClear = renderer.autoClear;
 

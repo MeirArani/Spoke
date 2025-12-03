@@ -6,7 +6,8 @@ import {
   ShaderMaterial,
   Mesh,
   Vector3,
-  DoubleSide
+  DoubleSide,
+  GLSL1
 } from "three";
 import EditorNodeMixin from "./EditorNodeMixin";
 
@@ -64,7 +65,8 @@ export default class MediaFrameNode extends EditorNodeMixin(Object3D) {
               gl_FragColor = vec4(1.0, 1.0, 1.0, 1.0);
             }
           `,
-        side: DoubleSide
+        side: DoubleSide,
+        glslVersion: GLSL1
       })
     );
 

@@ -69,7 +69,7 @@ export default class FlyControls {
     if (allowRotationInX) {
       this.camera.matrixWorld.compose(worldPos, candidateWorldQuat, worldScale);
       // assume that if camera.parent exists, its matrixWorld is up to date
-      parentInverse.getInverse(this.camera.parent ? this.camera.parent.matrixWorld : IDENTITY);
+      parentInverse.invert(this.camera.parent ? this.camera.parent.matrixWorld : IDENTITY);
       this.camera.matrix.multiplyMatrices(parentInverse, this.camera.matrixWorld);
       this.camera.matrixWorld.decompose(this.camera.position, this.camera.quaternion, this.camera.scale);
     }
