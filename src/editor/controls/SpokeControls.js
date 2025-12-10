@@ -11,7 +11,7 @@ import {
   Ray,
   Plane,
   Quaternion,
-  Math as _Math,
+  MathUtils as _Math,
   Layers
 } from "three";
 import getIntersectingNode from "../utils/getIntersectingNode";
@@ -292,7 +292,7 @@ export default class SpokeControls extends EventEmitter {
           this.transformGizmo.rotation.set(0, 0, 0);
         }
 
-        this.inverseGizmoQuaternion.copy(this.transformGizmo.quaternion).inverse();
+        this.inverseGizmoQuaternion.copy(this.transformGizmo.quaternion).invert();
       }
 
       if ((this.transformModeChanged || this.transformSpaceChanged) && this.transformMode === TransformMode.Scale) {

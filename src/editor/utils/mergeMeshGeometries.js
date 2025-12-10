@@ -1,10 +1,10 @@
 import { BufferGeometry, Float32BufferAttribute } from "three";
-import { BufferGeometryUtils } from "three/examples/jsm/utils/BufferGeometryUtils";
+import * as BufferGeometryUtils from "three/examples/jsm/utils/BufferGeometryUtils.js";
 
 function createEmptyGeometry() {
   const emptyGeometry = new BufferGeometry();
   emptyGeometry.setIndex([]);
-  emptyGeometry.addAttribute("position", new Float32BufferAttribute([], 3));
+  emptyGeometry.setAttribute("position", new Float32BufferAttribute([], 3));
   return emptyGeometry;
 }
 
@@ -31,7 +31,7 @@ export default function mergeMeshGeometries(meshes) {
     if (geometry.index) geometry = geometry.toNonIndexed();
 
     const cloneGeometry = new BufferGeometry();
-    cloneGeometry.addAttribute("position", geometry.attributes.position.clone());
+    cloneGeometry.setAttribute("position", geometry.attributes.position.clone());
     mesh.updateMatrixWorld();
     cloneGeometry.applyMatrix(mesh.matrixWorld);
     geometry = cloneGeometry;

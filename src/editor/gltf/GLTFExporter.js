@@ -20,7 +20,7 @@ import {
   LinearFilter,
   LinearMipMapLinearFilter,
   LinearMipMapNearestFilter,
-  Math as _Math,
+  MathUtils as _Math,
   MirroredRepeatWrapping,
   NearestFilter,
   NearestMipMapLinearFilter,
@@ -610,7 +610,7 @@ class GLTFExporter {
   /**
    * Process image
    * @param  {Image} image to process
-   * @param  {Integer} format of the image (e.g. THREE.RGBFormat, RGBAFormat etc)
+   * @param  {Integer} format of the image (e.g. RGBAFormat etc)
    * @param  {Boolean} flipY before writing out the image
    * @return {Integer}     Index of the processed texture in the "images" array
    */
@@ -928,7 +928,7 @@ class GLTFExporter {
     if (originalNormal !== undefined && !this.isNormalizedNormalAttribute(originalNormal)) {
       console.warn("THREE.GLTFExporter: Creating normalized normal attribute from the non-normalized one.");
 
-      geometry.addAttribute("normal", this.createNormalizedNormalAttribute(originalNormal));
+      geometry.setAttribute("normal", this.createNormalizedNormalAttribute(originalNormal));
     }
 
     // @QUESTION Detect if .vertexColors = THREE.VertexColors?
@@ -968,7 +968,7 @@ class GLTFExporter {
       }
     }
 
-    if (originalNormal !== undefined) geometry.addAttribute("normal", originalNormal);
+    if (originalNormal !== undefined) geometry.setAttribute("normal", originalNormal);
 
     // Skip if no exportable attributes found
     if (Object.keys(attributes).length === 0) {

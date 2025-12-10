@@ -1,6 +1,6 @@
 import configs from "../../configs";
 import EditorNodeMixin from "./EditorNodeMixin";
-import { Mesh, MeshBasicMaterial, Box3, Vector3, PlaneBufferGeometry, Object3D } from "three";
+import { Mesh, MeshBasicMaterial, Box3, Vector3, PlaneGeometry, Object3D } from "three";
 import FloorPlan from "../objects/FloorPlan";
 import GroundPlaneNode from "./GroundPlaneNode";
 import BoxColliderNode from "./BoxColliderNode";
@@ -310,7 +310,7 @@ export default class FloorPlanNode extends EditorNodeMixin(FloorPlan) {
       }
 
       const segments = heightfield.data[0].length;
-      const heightfieldMeshGeometry = new PlaneBufferGeometry(
+      const heightfieldMeshGeometry = new PlaneGeometry(
         heightfield.width,
         heightfield.length,
         segments - 1,

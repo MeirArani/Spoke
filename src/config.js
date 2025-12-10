@@ -57,17 +57,30 @@ import MediaFrameNode from "./editor/nodes/MediaFrameNode";
 import MediaFrameNodeEditor from "./ui/properties/MediaFrameNodeEditor";
 
 import SketchfabSource from "./ui/assets/sources/SketchfabSource";
-import BingImagesSource from "./ui/assets/sources/BingImagesSource";
-import BingVideosSource from "./ui/assets/sources/BingVideosSource";
-import TenorSource from "./ui/assets/sources/TenorSource";
 import ElementsSource from "./ui/assets/sources/ElementsSource";
 import MyAssetsSource from "./ui/assets/sources/MyAssetsSource";
 import ArchitectureKitSource from "./ui/assets/sources/ArchitectureKitSource";
 import RockKitSource from "./ui/assets/sources/RockKitSource";
 import HubsSoundPackSource from "./ui/assets/sources/HubsSoundPackSource";
+import FaboxSource from "./ui/assets/sources/FaboxSource";
 
 import TroikaTextNode from "./editor/nodes/TroikaTextNode";
 import TroikaTextNodeEditor from "./ui/properties/TroikaTextNodeEditor";
+
+import JumpNode from "./editor/nodes/JumpNode";
+import JumpNodeEditor from "./ui/properties/JumpNodeEditor";
+import EventNode from "./editor/nodes/EventNode";
+import EventNodeEditor from "./ui/properties/EventNodeEditor";
+
+import CollisionTriggerNode from "./editor/nodes/CollisionTriggerNode";
+import CollisionTriggerNodeEditor from "./ui/properties/CollisionTriggerNodeEditor";
+import AnimationModelNode from "./editor/nodes/AnimationModelNode";
+import AnimationModelNodeEditor from "./ui/properties/AnimationModelNodeEditor";
+import InteractTriggerNode from "./editor/nodes/InteractTriggerNode";
+import InteractTriggerNodeEditor from "./ui/properties/InteractTriggerNodeEditor";
+
+import GlobalMicNode from "./editor/nodes/GlobalMicNode";
+import GlobalMicNodeEditor from "./ui/properties/GlobalMicNodeEditor";
 
 export function createEditor(api, settings) {
   const editor = new Editor(api, settings);
@@ -75,6 +88,8 @@ export function createEditor(api, settings) {
   editor.registerNode(SceneNode, SceneNodeEditor);
   editor.registerNode(GroupNode, GroupNodeEditor);
   editor.registerNode(ModelNode, ModelNodeEditor);
+  editor.registerNode(AnimationModelNode, AnimationModelNodeEditor);
+  editor.registerNode(EventNode, EventNodeEditor);
   editor.registerNode(GroundPlaneNode, GroundPlaneNodeEditor);
   editor.registerNode(BoxColliderNode, BoxColliderNodeEditor);
   editor.registerNode(AmbientLightNode, AmbientLightNodeEditor);
@@ -101,16 +116,18 @@ export function createEditor(api, settings) {
   editor.registerNode(TroikaTextNode, TroikaTextNodeEditor);
   editor.registerNode(MirrorNode, MirrorNodeEditor);
 
+  editor.registerNode(JumpNode, JumpNodeEditor);
+  editor.registerNode(CollisionTriggerNode, CollisionTriggerNodeEditor);
+  editor.registerNode(InteractTriggerNode, InteractTriggerNodeEditor);
+  editor.registerNode(GlobalMicNode, GlobalMicNodeEditor);
 
   editor.registerSource(new ElementsSource(editor));
   editor.registerSource(new MyAssetsSource(editor));
   editor.registerSource(new ArchitectureKitSource(api));
   editor.registerSource(new RockKitSource(api));
   editor.registerSource(new SketchfabSource(api));
-  editor.registerSource(new BingImagesSource(api));
-  editor.registerSource(new BingVideosSource(api));
+  editor.registerSource(new FaboxSource(api));
   editor.registerSource(new HubsSoundPackSource(editor));
-  editor.registerSource(new TenorSource(api));
 
   return editor;
 }

@@ -6,7 +6,7 @@ import {
   Mesh,
   sRGBEncoding,
   LinearFilter,
-  PlaneBufferGeometry
+  PlaneGeometry
 } from "three";
 import loadTexture from "../utils/loadTexture";
 
@@ -29,7 +29,7 @@ export default class Image extends Object3D {
     this._alphaMode = ImageAlphaMode.Opaque;
     this._alphaCutoff = 0.5;
 
-    const geometry = new PlaneBufferGeometry();
+    const geometry = new PlaneGeometry();
     const material = new MeshBasicMaterial();
     material.side = DoubleSide;
     material.transparent = this.alphaMode === ImageAlphaMode.Blend;
@@ -87,7 +87,7 @@ export default class Image extends Object3D {
       // invert the geometry on the x-axis so that all of the faces point inward
       geometry.scale(-1, 1, 1);
     } else {
-      geometry = new PlaneBufferGeometry();
+      geometry = new PlaneGeometry();
       material.side = DoubleSide;
     }
 

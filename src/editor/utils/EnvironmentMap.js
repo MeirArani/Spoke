@@ -1,4 +1,4 @@
-import { CubeTextureLoader, RGBFormat } from "three";
+import { CubeTextureLoader, RGBAFormat } from "three";
 import { RethrownError } from "./errors";
 import negx from "../../assets/cubemap/negx.jpg";
 import negy from "../../assets/cubemap/negy.jpg";
@@ -21,7 +21,7 @@ export function loadEnvironmentMap() {
     cubeMapTexturePromise = new CubeTextureLoader().load(
       cubeMapURLs,
       texture => {
-        texture.format = RGBFormat;
+        texture.format = RGBAFormat;
         environmentMap = texture;
         resolve(texture);
       },

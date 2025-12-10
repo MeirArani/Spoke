@@ -1,12 +1,13 @@
 import {
   Object3D,
-  BoxBufferGeometry,
-  PlaneBufferGeometry,
+  BoxGeometry,
+  PlaneGeometry,
   MeshBasicMaterial,
   ShaderMaterial,
   Mesh,
   Vector3,
-  DoubleSide
+  DoubleSide,
+  GLSL1
 } from "three";
 import EditorNodeMixin from "./EditorNodeMixin";
 
@@ -24,7 +25,7 @@ export default class MediaFrameNode extends EditorNodeMixin(Object3D) {
 
   static nodeName = "Media Frame";
 
-  static _geometry = new BoxBufferGeometry();
+  static _geometry = new BoxGeometry();
 
   constructor(editor) {
     super(editor);
@@ -64,7 +65,8 @@ export default class MediaFrameNode extends EditorNodeMixin(Object3D) {
               gl_FragColor = vec4(1.0, 1.0, 1.0, 1.0);
             }
           `,
-        side: DoubleSide
+        side: DoubleSide,
+        glslVersion: GLSL1
       })
     );
 
@@ -73,7 +75,7 @@ export default class MediaFrameNode extends EditorNodeMixin(Object3D) {
     previewMaterial.transparent = true;
     previewMaterial.opacity = 0.5;
 
-    const previewMesh = new Mesh(new PlaneBufferGeometry(1, 1, 1, 1), previewMaterial);
+    const previewMesh = new Mesh(new PlaneGeometry(1, 1, 1, 1), previewMaterial);
     box.add(previewMesh);
 
     previewMesh.layers.set(1);

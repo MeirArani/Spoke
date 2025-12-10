@@ -444,18 +444,10 @@ class EditorContainer extends Component {
   onEditorInitialized = () => {
     const editor = this.state.editor;
 
-    const gl = this.state.editor.renderer.renderer.context;
+    const gl = this.state.editor.renderer.renderer.getContext();
 
-    const debugInfo = gl.getExtension("WEBGL_debug_renderer_info");
-
-    let webglVendor = "Unknown";
-    let webglRenderer = "Unknown";
-
-    if (debugInfo) {
-      webglVendor = gl.getParameter(debugInfo.UNMASKED_VENDOR_WEBGL);
-      webglRenderer = gl.getParameter(debugInfo.UNMASKED_RENDERER_WEBGL);
-    }
-
+    const webglVendor = gl.getParameter(gl.VENDOR);
+    const webglRenderer = gl.getParameter(gl.RENDERER);
     Sentry.configureScope(scope => {
       scope.setTag("webgl-vendor", webglVendor);
       scope.setTag("webgl-renderer", webglRenderer);

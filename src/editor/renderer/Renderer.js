@@ -7,6 +7,8 @@ import { getCanvasBlob } from "../utils/thumbnails";
 import makeRenderer from "./makeRenderer";
 import SpokeBatchRawUniformGroup from "./SpokeBatchRawUniformGroup";
 import ScenePreviewCameraNode from "../nodes/ScenePreviewCameraNode";
+import { GammaCorrectionShader } from "three/examples/jsm/shaders/GammaCorrectionShader.js";
+import { ShaderPass } from "three/examples/jsm/postprocessing/ShaderPass.js";
 
 /**
  * @author mrdoob / http://mrdoob.com/
@@ -55,6 +57,9 @@ class UnlitRenderMode extends RenderMode {
     this.hiddenLayers = new Layers();
     this.hiddenLayers.set(1);
     this.disableBatching = false;
+
+    const gammaCorrection = new ShaderPass(GammaCorrectionShader);
+    this.effectComposer.addPass(gammaCorrection);
 
     this.spokeRenderer = spokeRenderer;
   }

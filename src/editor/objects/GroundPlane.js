@@ -1,7 +1,7 @@
-import { Object3D, CircleBufferGeometry, MeshStandardMaterial, Mesh } from "three";
+import { Object3D, CircleGeometry, MeshStandardMaterial, Mesh } from "three";
 
 export default class GroundPlane extends Object3D {
-  static _geometry = new CircleBufferGeometry(4000, 32);
+  static _geometry = new CircleGeometry(4000, 32);
 
   constructor() {
     super();

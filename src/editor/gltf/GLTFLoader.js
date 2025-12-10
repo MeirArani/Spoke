@@ -37,10 +37,9 @@ import {
   LinearFilter,
   LinearMipMapLinearFilter,
   LinearMipMapNearestFilter,
-  Loader,
   LoaderUtils,
   Material,
-  Math as _Math,
+  MathUtils as _Math,
   Matrix4,
   Mesh,
   MeshStandardMaterial,
@@ -57,7 +56,6 @@ import {
   PropertyBinding,
   QuaternionKeyframeTrack,
   RGBAFormat,
-  RGBFormat,
   RepeatWrapping,
   Scene,
   Skeleton,
@@ -66,7 +64,6 @@ import {
   TriangleFanDrawMode,
   TriangleStripDrawMode,
   VectorKeyframeTrack,
-  VertexColors,
   sRGBEncoding
 } from "three";
 
@@ -164,7 +161,7 @@ export const ALPHA_MODES = {
 
 export const MIME_TYPE_FORMATS = {
   "image/png": RGBAFormat,
-  "image/jpeg": RGBFormat
+  "image/jpeg": RGBAFormat
 };
 
 /*********************************/
@@ -1256,7 +1253,7 @@ class GLTFLoader {
 
     const assignAttributeAccessor = (accessorIndex, attributeName) => {
       return this.getDependency("accessor", accessorIndex).then(function(accessor) {
-        geometry.addAttribute(attributeName, accessor);
+        geometry.setAttribute(attributeName, accessor);
       });
     };
 
@@ -1491,7 +1488,7 @@ class GLTFLoader {
     }
 
     if (metallicRoughness.baseColorTexture !== undefined) {
-      const format = alphaMode === ALPHA_MODES.OPAQUE ? RGBFormat : RGBAFormat;
+      const format = alphaMode === ALPHA_MODES.OPAQUE ? RGBAFormat : RGBAFormat;
       pending.push(this.assignTexture(material, "map", metallicRoughness.baseColorTexture, sRGBEncoding, format));
     }
 
@@ -1500,10 +1497,10 @@ class GLTFLoader {
 
     if (metallicRoughness.metallicRoughnessTexture !== undefined) {
       pending.push(
-        this.assignTexture(material, "metalnessMap", metallicRoughness.metallicRoughnessTexture, undefined, RGBFormat)
+        this.assignTexture(material, "metalnessMap", metallicRoughness.metallicRoughnessTexture, undefined, RGBAFormat)
       );
       pending.push(
-        this.assignTexture(material, "roughnessMap", metallicRoughness.metallicRoughnessTexture, undefined, RGBFormat)
+        this.assignTexture(material, "roughnessMap", metallicRoughness.metallicRoughnessTexture, undefined, RGBAFormat)
       );
     }
 
@@ -1522,7 +1519,7 @@ class GLTFLoader {
     }
 
     if (materialDef.normalTexture !== undefined) {
-      pending.push(this.assignTexture(material, "normalMap", materialDef.normalTexture, undefined, RGBFormat));
+      pending.push(this.assignTexture(material, "normalMap", materialDef.normalTexture, undefined, RGBAFormat));
 
       material.normalScale.set(1, 1);
 
@@ -1532,7 +1529,7 @@ class GLTFLoader {
     }
 
     if (materialDef.occlusionTexture !== undefined) {
-      pending.push(this.assignTexture(material, "aoMap", materialDef.occlusionTexture, undefined, RGBFormat));
+      pending.push(this.assignTexture(material, "aoMap", materialDef.occlusionTexture, undefined, RGBAFormat));
 
       if (materialDef.occlusionTexture.strength !== undefined) {
         material.aoMapIntensity = materialDef.occlusionTexture.strength;
@@ -1544,7 +1541,7 @@ class GLTFLoader {
     }
 
     if (materialDef.emissiveTexture !== undefined) {
-      pending.push(this.assignTexture(material, "emissiveMap", materialDef.emissiveTexture, sRGBEncoding, RGBFormat));
+      pending.push(this.assignTexture(material, "emissiveMap", materialDef.emissiveTexture, sRGBEncoding, RGBAFormat));
     }
 
     await Promise.all(pending);
@@ -1623,7 +1620,7 @@ class GLTFLoader {
 
         if (useSkinning) cachedMaterial.skinning = true;
         if (useVertexTangents) cachedMaterial.vertexTangents = true;
-        if (useVertexColors) cachedMaterial.vertexColors = VertexColors;
+        if (useVertexColors) cachedMaterial.vertexColors = true;
         if (useFlatShading) cachedMaterial.flatShading = true;
         if (useMorphTargets) cachedMaterial.morphTargets = true;
         if (useMorphNormals) cachedMaterial.morphNormals = true;
@@ -1637,7 +1634,7 @@ class GLTFLoader {
     // workarounds for mesh and geometry
 
     if (material.aoMap && geometry.attributes.uv2 === undefined && geometry.attributes.uv !== undefined) {
-      geometry.addAttribute("uv2", new BufferAttribute(geometry.attributes.uv.array, 2));
+      geometry.setAttribute("uv2", new BufferAttribute(geometry.attributes.uv.array, 2));
     }
 
     mesh.material = material;
@@ -1674,7 +1671,7 @@ class GLTFLoader {
     }
 
     // Load Texture resource.
-    let loader = Loader.Handlers.get(sourceURI);
+    let loader = textureLoader; //Loader.Handlers.get(sourceURI);
 
     if (!loader) {
       loader = textureLoader;

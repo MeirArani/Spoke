@@ -1,4 +1,4 @@
-import { Material, BoxBufferGeometry, Mesh, BoxHelper } from "three";
+import { Material, BoxGeometry, Mesh, BoxHelper } from "three";
 import AudioParams, { AudioElementType } from "../objects/AudioParams";
 import AudioParamsNode from "./AudioParamsNode";
 
@@ -9,7 +9,7 @@ export default class AudioZoneNode extends AudioParamsNode(AudioParams) {
 
   static nodeName = "Audio Zone";
 
-  static _geometry = new BoxBufferGeometry();
+  static _geometry = new BoxGeometry();
 
   static _material = new Material();
 

@@ -1,11 +1,11 @@
-import { Object3D, PlaneBufferGeometry, Color } from "three";
+import { Object3D, PlaneGeometry, Color } from "three";
 import { Reflector } from "three/examples/jsm/objects/Reflector";
 
 export default class Mirror extends Object3D {
   constructor(color) {
     super();
 
-    this.mesh = new Reflector(new PlaneBufferGeometry(), { color });
+    this.mesh = new Reflector(new PlaneGeometry(), { color });
     this.add(this.mesh);
   }
 

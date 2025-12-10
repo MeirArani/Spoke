@@ -1,4 +1,4 @@
-import { Mesh, CircleBufferGeometry, MeshBasicMaterial, Object3D } from "three";
+import { Mesh, CircleGeometry, MeshBasicMaterial, Object3D } from "three";
 import EditorNodeMixin from "./EditorNodeMixin";
 import GroundPlane from "../objects/GroundPlane";
 
@@ -32,7 +32,7 @@ export default class GroundPlaneNode extends EditorNodeMixin(GroundPlane) {
   constructor(editor) {
     super(editor);
     this.walkable = true;
-    this.walkableMesh = new Mesh(new CircleBufferGeometry(1, 32), new MeshBasicMaterial());
+    this.walkableMesh = new Mesh(new CircleGeometry(1, 32), new MeshBasicMaterial());
     this.walkableMesh.name = "WalkableMesh";
     this.walkableMesh.scale.set(100, 100, 100);
     this.walkableMesh.position.y = -0.05;

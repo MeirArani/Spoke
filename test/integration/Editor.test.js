@@ -69,7 +69,7 @@ test("Editor should load V1TestScene", withPage(`/projects/new?template=${v1Test
   const skyboxProps = skyboxEntity.components.find(c => c.name === "skybox").props;
   t.is(skyboxProps.turbidity, 9);
   t.is(skyboxProps.rayleigh, 1.2);
-  t.is(skyboxProps.luminance, 0.5);
+  t.is(skyboxProps.skyLuminance, 0.5);
   t.is(skyboxProps.mieCoefficient, 0.006);
   t.is(skyboxProps.mieDirectionalG, 0.7);
   t.is(skyboxProps.inclination, 0.1);

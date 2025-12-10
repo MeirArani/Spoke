@@ -1,4 +1,4 @@
-import { Mesh, Color, PlaneBufferGeometry, ShaderMaterial, DoubleSide, Plane, Vector3 } from "three";
+import { Mesh, Color, PlaneGeometry, ShaderMaterial, DoubleSide, Plane, Vector3, GLSL1 } from "three";
 import { addIsHelperFlag } from "./utils";
 
 /**
@@ -61,7 +61,7 @@ export default class SpokeInfiniteGridHelper extends Mesh {
     size2 = size2 || 10;
     distance = distance || 8000;
 
-    const geometry = new PlaneBufferGeometry(2, 2, 1, 1);
+    const geometry = new PlaneGeometry(2, 2, 1, 1);
 
     const material = new ShaderMaterial({
       side: DoubleSide,
@@ -83,6 +83,7 @@ export default class SpokeInfiniteGridHelper extends Mesh {
       transparent: true,
       vertexShader,
       fragmentShader,
+      glslVersion: GLSL1,
 
       extensions: {
         derivatives: true

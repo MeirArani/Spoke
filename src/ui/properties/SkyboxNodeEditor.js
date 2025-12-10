@@ -29,8 +29,8 @@ export default class SkyboxNodeEditor extends Component {
     this.props.editor.setPropertySelected("rayleigh", rayleigh);
   };
 
-  onChangeLuminance = luminance => {
-    this.props.editor.setPropertySelected("luminance", luminance);
+  onChangeSkyLuminance = skyLuminance => {
+    this.props.editor.setPropertySelected("skyLuminance", skyLuminance);
   };
 
   onChangeMieCoefficient = mieCoefficient => {
@@ -81,13 +81,13 @@ export default class SkyboxNodeEditor extends Component {
           value={node.inclination}
           onChange={this.onChangeInclination}
         />
-        <InputGroup name="Luminance">
+        <InputGroup name="SkyLuminance">
           <CompoundNumericInput
             min={0.001}
             max={1.189}
             step={0.001}
-            value={node.luminance}
-            onChange={this.onChangeLuminance}
+            value={node.skyLuminance}
+            onChange={this.onChangeSkyLuminance}
           />
         </InputGroup>
         <InputGroup name="Scattering Amount">

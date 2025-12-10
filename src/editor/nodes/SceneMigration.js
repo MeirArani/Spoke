@@ -1,4 +1,4 @@
-import { Math as _Math } from "three";
+import { MathUtils as _Math } from "three";
 
 const combineComponents = ["gltf-model", "kit-piece"];
 

@@ -145,6 +145,7 @@ function ViewportToolbar({ onToggleStats, showStats }) {
 
   const onChangeRenderMode = useCallback(
     mode => {
+      console.log(mode);
       editor.renderer.setRenderMode(mode);
       setRenderMode(mode);
     },

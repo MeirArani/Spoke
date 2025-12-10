@@ -3,15 +3,16 @@ import {
   CubeCamera,
   Object3D,
   Vector3,
-  BoxBufferGeometry,
+  BoxGeometry,
   ShaderMaterial,
   UniformsUtils,
   BackSide,
   Mesh,
-  UniformsLib
+  UniformsLib,
+  PMREMGenerator,
+  WebGLCubeRenderTarget,
+  GLSL1
 } from "three";
-import { PMREMGenerator } from "three/examples/jsm/pmrem/PMREMGenerator";
-import { PMREMCubeUVPacker } from "three/examples/jsm/pmrem/PMREMCubeUVPacker";
 
 /**
  * @author zz85 / https://github.com/zz85
@@ -118,7 +119,7 @@ varying vec3 vBetaR;
 varying vec3 vBetaM;
 varying float vSunE;
 
-uniform float luminance;
+uniform float skyLuminance;
 uniform float mieDirectionalG;
 
 const vec3 cameraPos = vec3( 0.0, 0.0, 0.0 );
@@ -202,7 +203,7 @@ void main() {
 
   vec3 texColor = ( Lin + L0 ) * 0.04 + vec3( 0.0, 0.0003, 0.00075 );
 
-  vec3 curr = Uncharted2Tonemap( ( log2( 2.0 / pow( luminance, 4.0 ) ) ) * texColor );
+  vec3 curr = Uncharted2Tonemap( ( log2( 2.0 / pow( skyLuminance, 4.0 ) ) ) * texColor );
   vec3 color = curr * whiteScale;
 
   vec3 retColor = pow( color, vec3( 1.0 / ( 1.2 + ( 1.2 * vSunfade ) ) ) );
@@ -218,7 +219,7 @@ export default class Sky extends Object3D {
     uniforms: UniformsUtils.merge([
       UniformsLib.fog,
       {
-        luminance: { value: 1 },
+        skyLuminance: { value: 1 },
         turbidity: { value: 10 },
         rayleigh: { value: 2 },
         mieCoefficient: { value: 0.005 },
@@ -227,10 +228,11 @@ export default class Sky extends Object3D {
       }
     ]),
     vertexShader,
-    fragmentShader
+    fragmentShader,
+    glslVersion: GLSL1
   };
 
-  static _geometry = new BoxBufferGeometry(1, 1, 1);
+  static _geometry = new BoxGeometry(1, 1, 1);
 
   constructor() {
     super();
@@ -240,11 +242,13 @@ export default class Sky extends Object3D {
       vertexShader: Sky.shader.vertexShader,
       uniforms: UniformsUtils.clone(Sky.shader.uniforms),
       side: BackSide,
+      glslVersion: GLSL1,
       fog: true
     });
 
     this.skyScene = new Scene();
-    this.cubeCamera = new CubeCamera(1, 100000, 512);
+    const cubeRenderTarget = new WebGLCubeRenderTarget(512);
+    this.cubeCamera = new CubeCamera(1, 100000, cubeRenderTarget);
     this.skyScene.add(this.cubeCamera);
 
     this.sky = new Mesh(Sky._geometry, material);
@@ -273,12 +277,12 @@ export default class Sky extends Object3D {
     this.sky.material.uniforms.rayleigh.value = value;
   }
 
-  get luminance() {
-    return this.sky.material.uniforms.luminance.value;
+  get skyLuminance() {
+    return this.sky.material.uniforms.skyLuminance.value;
   }
 
-  set luminance(value) {
-    this.sky.material.uniforms.luminance.value = value;
+  set skyLuminance(value) {
+    this.sky.material.uniforms.skyLuminance.value = value;
   }
 
   get mieCoefficient() {
@@ -342,16 +346,13 @@ export default class Sky extends Object3D {
     this.skyScene.add(this.sky);
     this.cubeCamera.update(renderer, this.skyScene);
     this.add(this.sky);
-    const vrEnabled = renderer.vr.enabled;
-    renderer.vr.enabled = false;
-    const pmremGenerator = new PMREMGenerator(this.cubeCamera.renderTarget.texture);
-    pmremGenerator.update(renderer);
-    const pmremCubeUVPacker = new PMREMCubeUVPacker(pmremGenerator.cubeLods);
-    pmremCubeUVPacker.update(renderer);
-    renderer.vr.enabled = vrEnabled;
+    const vrEnabled = renderer.xr.enabled;
+    renderer.xr.enabled = false;
+    const pmremGenerator = new PMREMGenerator(renderer);
+    const map = pmremGenerator.fromScene(this.skyScene).texture;
+    renderer.xr.enabled = vrEnabled;
     pmremGenerator.dispose();
-    pmremCubeUVPacker.dispose();
-    return pmremCubeUVPacker.CubeUVRenderTarget.texture;
+    return map;
   }
 
   copy(source, recursive = true) {
@@ -371,7 +372,7 @@ export default class Sky extends Object3D {
 
     this.turbidity = source.turbidity;
     this.rayleigh = source.rayleigh;
-    this.luminance = source.luminance;
+    this.skyLuminance = source.skyLuminance;
     this.mieCoefficient = source.mieCoefficient;
     this.mieDirectionalG = source.mieDirectionalG;
     this.inclination = source.inclination;
