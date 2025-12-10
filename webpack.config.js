@@ -101,7 +101,8 @@ module.exports = env => {
 
     output: {
       filename: "assets/js/[name]-[chunkhash].js",
-      publicPath: process.env.BASE_ASSETS_PATH || "/"
+      publicPath: process.env.BASE_ASSETS_PATH || "/",
+      hashFunction: "sha512"
     },
 
     module: {
