@@ -10,6 +10,8 @@ if (process.env.NODE_ENV === "production") {
   dotenv.config({ path: ".env.defaults" });
 }
 
+
+
 const fs = require("fs");
 const selfsigned = require("selfsigned");
 const cors = require("cors");
@@ -73,6 +75,14 @@ const host = process.env.HOST_IP || defaultHostName;
 const port = process.env.HOST_PORT || 9090;
 const internalHostname = process.env.INTERNAL_HOSTNAME || defaultHostName;
 
+// Workaround for hashFunction issues relating to Node v16 and SSL
+// TODO: Find a real workaround for node 17+
+const crypto = require("crypto");
+const crypto_orig_createHash = crypto.createHash;
+crypto.createHash = algorithm => crypto_orig_createHash(algorithm == "md4" ? "sha256" : algorithm);
+
+
+
 module.exports = env => {
   return {
     entry: {
@@ -102,7 +112,6 @@ module.exports = env => {
     output: {
       filename: "assets/js/[name]-[chunkhash].js",
       publicPath: process.env.BASE_ASSETS_PATH || "/",
-      hashFunction: "sha512"
     },
 
     module: {
