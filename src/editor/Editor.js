@@ -1121,7 +1121,7 @@ export default class Editor extends EventEmitter {
       object.parent.updateMatrixWorld();
       tempMatrix1.multiply(object.parent.matrixWorld);
 
-      object.applyMatrix(tempMatrix1);
+      object.applyMatrix4(tempMatrix1);
 
       object.updateWorldMatrix(false, false);
     }

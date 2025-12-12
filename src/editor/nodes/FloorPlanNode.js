@@ -145,7 +145,7 @@ export default class FloorPlanNode extends EditorNodeMixin(FloorPlan) {
 
       const geometry = mesh.geometry.clone(); // Clone in case the user reuses a mesh for the navmesh.
       mesh.updateMatrixWorld();
-      geometry.applyMatrix(mesh.matrixWorld);
+      geometry.applyMatrix4(mesh.matrixWorld);
 
       this.setNavMesh(new Mesh(geometry, new MeshBasicMaterial({ color: 0x0000ff, transparent: true, opacity: 0.2 })));
 
@@ -233,7 +233,7 @@ export default class FloorPlanNode extends EditorNodeMixin(FloorPlan) {
         if (node.walkable) {
           const helperMesh = node.helper.object;
           const boxColliderMesh = new Mesh(helperMesh.geometry, new MeshBasicMaterial());
-          boxColliderMesh.applyMatrix(node.matrixWorld);
+          boxColliderMesh.applyMatrix4(node.matrixWorld);
           boxColliderMesh.updateMatrixWorld();
           walkableMeshes.push(boxColliderMesh);
         }

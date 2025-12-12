@@ -215,9 +215,9 @@ export default class MeshCombinationGroup {
       const clonedBufferGeometry = mesh.geometry.clone();
 
       const matrixWorld = mesh.matrixWorld;
-      clonedBufferGeometry.applyMatrix(matrixWorld);
+      clonedBufferGeometry.applyMatrix4(matrixWorld);
 
-      // TODO: geometry.applyMatrix should handle this
+      // TODO: geometry.applyMatrix4 should handle this
       const hasNegativeScale = matrixWorld.elements[0] * matrixWorld.elements[5] * matrixWorld.elements[10] < 0;
 
       const indices = clonedBufferGeometry.index.array;
