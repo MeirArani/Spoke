@@ -1,5 +1,7 @@
 import EditorNodeMixin from "./EditorNodeMixin";
 import Sky from "../objects/Sky";
+import { RoomEnvironment } from "three/examples/jsm/environments/RoomEnvironment.js";
+import { PMREMGenerator } from "three";
 
 export default class SkyboxNode extends EditorNodeMixin(Sky) {
   static componentName = "skybox";
@@ -58,7 +60,10 @@ export default class SkyboxNode extends EditorNodeMixin(Sky) {
 
   updateEnvironmentMap() {
     const renderer = this.editor.renderer.renderer;
-    const envMap = this.generateEnvironmentMap(renderer);
+    const pmremGenerator = new PMREMGenerator(renderer);
+    pmremGenerator.compileEquirectangularShader();
+    //const envMap = this.generateEnvironmentMap(renderer);
+    const envMap = pmremGenerator.fromScene(new RoomEnvironment()).texture;
     this.editor.scene.updateEnvironmentMap(envMap);
   }
 

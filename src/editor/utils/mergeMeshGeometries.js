@@ -33,7 +33,7 @@ export default function mergeMeshGeometries(meshes) {
     const cloneGeometry = new BufferGeometry();
     cloneGeometry.setAttribute("position", geometry.attributes.position.clone());
     mesh.updateMatrixWorld();
-    cloneGeometry.applyMatrix(mesh.matrixWorld);
+    cloneGeometry.applyMatrix4(mesh.matrixWorld);
     geometry = cloneGeometry;
 
     geometries.push(geometry);

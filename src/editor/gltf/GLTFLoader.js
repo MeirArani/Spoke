@@ -750,7 +750,7 @@ class GLTFLoader {
     if (nodeDef.matrix !== undefined) {
       const matrix = new Matrix4();
       matrix.fromArray(nodeDef.matrix);
-      node.applyMatrix(matrix);
+      node.applyMatrix4(matrix);
     } else {
       if (nodeDef.translation !== undefined) {
         node.position.fromArray(nodeDef.translation);
